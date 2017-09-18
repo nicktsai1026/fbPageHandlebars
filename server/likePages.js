@@ -20,7 +20,7 @@ function pageDetails (path) {
                         console.log('done');
                         return pageData
                     } else {
-                        // console.log(nextPage);
+                        console.log(nextPage);
                         getDetail(nextPage)
                     }
                 })
