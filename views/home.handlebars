@@ -1,10 +1,15 @@
-<div>
-    <button class="btn btn-info">Find your friends who liked with you!</button>
-    <h1>All the categories that you liked</h1>
-    <ul>
-        {{#each category}}
-            <a href="/{{@key}}"><li>{{@key}}: {{this}}</li></a>
+<div class="subHead">
+    <button class="friends btn btn-info">Find your friends who liked with you!</button>
+    <h1>All the categories that you liked, {{category.length}} of them to be exact!</h1>
+</div>
+
+<div class="categoryList">
+    {{!-- <ul> --}}
+        {{#each category as |item|}}
+            <a href="{{ item.[0] }}">
+                <h4>{{ item.[0] }} : {{ item.[1] }}</he4>
+            </a>
             <hr>
         {{/each}}
-    </ul>
+    {{!-- </ul> --}}
 </div>

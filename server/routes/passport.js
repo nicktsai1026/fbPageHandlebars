@@ -26,6 +26,7 @@ module.exports = (app, db) => {
                             console.log('Error in passport')
                             console.log(err)
                         } else {
+                            console.log('fbInfoObj')
                             return cb(null, fbInfoObj);
                         }
                     })
