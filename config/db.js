@@ -1,4 +1,3 @@
 module.exports = {
-    url: `mongodb://nick:password@ds133084.mlab.com:33084/facebookproject`,
-    secret: 'accelerateHK'
+    url: `mongodb://nicktsai:password@ds139964.mlab.com:39964/facebookhb`,
 };

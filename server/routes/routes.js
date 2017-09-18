@@ -3,120 +3,120 @@ const getLikePages = require('../likePages');
 //const GetUser = require('./getUserdb');
 
 module.exports = function (app, db) {
-
     //const getUser = new GetUser(app, db);
-
-    app.get('/react', (req, res) => {
-        res.render('react') 
-    })
-
-    // Add a seperate route for registered users to clean up the code
-    app.get('/home/:token', (req, res) => {
-        console.log('inroutes');
-        console.log(req);
+    app.get('/setLikePages', (req, res) => {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId : userId }, (err, item) => {
             if (err) return console.log(err)
             var accessToken = item.access_token ;
-            var facebookId = item.fbId;
-            var path = `https://graph.facebook.com/v2.10/${facebookId}/likes?fields=name,fan_count,category,about,link,picture&access_token=${accessToken}`;
+            var path = `https://graph.facebook.com/v2.10/${userId}/likes?fields=name,fan_count,category,about,link,picture&access_token=${accessToken}`;
             getLikePages.pageDetails(path)
                 .then((details) => {
+                    //check user likes page (for existed users)
                     var newPageIdOnly = details[1];
-                    db.collection('users').findOne({ fbId: userId }, (err, item) => {
-                        //check user likes page (for existed users)
-                        if(item.likes) {
-                            var oldPageIdOnly = [];
-                            item.likes.forEach((val) => {
-                                oldPageIdOnly.push(val.id);
-                            })
-                            let a = new Set(oldPageIdOnly);
-                            let b = new Set(newPageIdOnly);
-                            // ab difference set差集
-                            let differenceABSet = new Set([...a].filter(x => !b.has(x)));
-                            let differenceArr = Array.from(differenceABSet);
-            
-                            // Add another .then() here?
-                            differenceArr.forEach((value) => {
-                                db.collection('pagedetails').findOne({ id: value }, (err, item) => {
-                                    var newFbUserId = item.fbUserId.filter(function (id) {
-                                        return id != userId;
-                                    })
-                                    db.collection('pagedetails').updateOne({ id: value }, { $set: { fbUserId: newFbUserId } }, (err, item) => {
-                                        if (err) return console.log(err)
-                                    })
-                                })
-                            })
-                        }
-                        var pageObj = {};
-                        pageObj.likes = details[0];
-                        db.collection('users').updateOne({ fbId: userId }, { $set: pageObj }, (err, item) => {
-                            if (err) return console.log(err)
+                    if(item.likes) {
+                        var oldPageIdOnly = [];
+                        item.likes.forEach((val) => {
+                            oldPageIdOnly.push(val.id);
                         })
-                    })
-                    return details[0];
-                })
-                .then((detailArr) => {
-                    detailArr.forEach((val) => {
-                        db.collection('pagedetails').findOne({ id: val.id }, (err, item) => {
-                            if (item == null) {
-                                val.fbUserId = [facebookId];
-                                db.collection('pagedetails').insert(val, (err, item) => {
+                        let a = new Set(oldPageIdOnly);
+                        let b = new Set(newPageIdOnly);
+                        // ab difference set 差集
+                        let differenceABSet = new Set([...a].filter(x => !b.has(x)));
+                        let differenceArr = Array.from(differenceABSet);
+        
+                        differenceArr.forEach((value) => {
+                            db.collection('pagedetails').findOne({ id: value }, (err, item) => {
+                                var newFbUserId = item.fbUserId.filter(function (id) {
+                                    return id != userId;
+                                })
+                                db.collection('pagedetails').updateOne({ id: value }, { $set: { fbUserId: newFbUserId } }, (err, item) => {
                                     if (err) return console.log(err)
                                 })
-                            } else {
-                                //check fbUserId arr had this facebookId or not
-                                var judge = item.fbUserId.indexOf(facebookId);
-                                if( judge < 0) {
-                                    item.fbUserId.push(facebookId);
-                                    db.collection('pagedetails').updateOne({ id: val.id}, { $set: item}, (err, item) => {
-                                        if (err) return console.log(err)
-                                    })
-                                }
-                            }
+                            })
                         })
+                    }
+                    var pageObj = {};
+                    pageObj.likes = details[0];
+                    db.collection('users').updateOne({ fbId: userId }, { $set: pageObj }, (err, item) => {
+                        if (err) return console.log(err)
+                        res.redirect('/setPageDetails');
                     })
-                    //home should be change
-                    res.render('home');
-                    // res.send(pageObj)
                 })
                 .catch((err) => {
                     console.log(err);
-                })
+                })           
+            })
         })
+
+    app.get('/setPageDetails', (req, res) => {
+        var userId = req.session.passport.user;
+        db.collection('users').findOne({ fbId: userId}, (err,item) => {
+            if (err) return console.log(err)
+            item.likes.forEach((val) => {
+                db.collection('pagedetails').findOne({ id: val.id }, (err, item) => {
+                    if (item == null) {
+                        val.fbUserId = [userId];
+                        db.collection('pagedetails').insert(val, (err, item) => {
+                            if (err) return console.log(err)
+                        })
+                    } else {
+                        //check fbUserId arr had this facebookId or not
+                        var judge = item.fbUserId.indexOf(userId);
+                        if (judge < 0) {
+                            item.fbUserId.push(userId);
+                            db.collection('pagedetails').updateOne({ id: val.id }, { $set: item }, (err, item) => {
+                                if (err) return console.log(err)
+                            })
+                        }
+                    } 
+                })
+            })
+        })
+        res.redirect('/home');
     })
 
-    app.get('/profile', (req, res) => {
-        console.log(req.session)
+    app.get('/home', (req, res) => {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
+            var personalInfoArr= [];
             if (err) return console.log(err)
-            var personalInfo= {};
-            personalInfo.name = item.fbName;
-            personalInfo.picture = item.fbPhoto;
-            res.send(personalInfo);
-        })
-    })
-
-    app.get('/likedPage', (req, res) => {
-        // var userId = req.session.passport.user;
-        var userId = '1808586925832988';
-        db.collection('users').findOne({ fbId: userId }, (err, item) => {
-            if (err) return console.log(err)
-            var pageArr = item.likes;
+            personalInfoArr.push(item);
+            //set category obj
             var categoryArr = [];
-            pageArr.forEach((val) => {
+            item.likes.forEach((val) => {
                 categoryArr.push(val.category);
             })
-            var categoryCounts = {};
             //count category
+            var categoryCounts = {};
             categoryArr.forEach(function (x) {
                 categoryCounts[x] = (categoryCounts[x] || 0) + 1;
 
             });
-            res.send(categoryCounts);
+            categoryCounts.fbInfo = personalInfoArr;
+            res.render('home', categoryCounts);
         })
     })
+
+    // app.get('/likedPage', (req, res) => {
+    //     // var userId = req.session.passport.user;
+    //     var userId = '1808586925832988';
+    //     db.collection('users').findOne({ fbId: userId }, (err, item) => {
+    //         if (err) return console.log(err)
+    //         var pageArr = item.likes;
+    //         var categoryArr = [];
+    //         pageArr.forEach((val) => {
+    //             categoryArr.push(val.category);
+    //         })
+    //         var categoryCounts = {};
+    //         //count category
+    //         categoryArr.forEach(function (x) {
+    //             categoryCounts[x] = (categoryCounts[x] || 0) + 1;
+
+    //         });
+    //         res.send(categoryCounts);
+    //     })
+    // })
 
 
     app.get('/checkSamePages', (req, res) => {
@@ -142,11 +142,7 @@ module.exports = function (app, db) {
         })
     })
 
-    app.get('/getCategory', (req, res) => {
-        db.collection('pagedetails').find({}).toArray((err, item) => {
-            console.log(item);
-        })
-    })
+
 }
 
 

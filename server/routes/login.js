@@ -11,7 +11,6 @@ module.exports = function (app, db) {
 
     app.get('/login', isLoggedIn, (req, res) => {
         res.render('home');
-        //Redirect to another page for registered users 
     })
 
     app.get('/facebookLogin', (req, res) => {
@@ -21,19 +20,7 @@ module.exports = function (app, db) {
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', { failureRedirect: '/login' }),
         function (req, res) {
-            console.log(req);
-            let userId = req.user.fbId
-            db.collection('users').findOne({ fbId : userId }, (err, item) => {
-                if (err) return console.log(err)
-                //console.log(item.fbId)
-                if (item.fbId){
-                    console.log('Redirect this user to a registered route')
-                    res.redirect('/home/' + token);        
-                } else {
-                    console.log('This is a new user!')
-                    res.redirect('/home/' + token);
-                }
-            })
+            res.redirect('/setLikePages');
         });
 
     app.get('/auth/facebook',
