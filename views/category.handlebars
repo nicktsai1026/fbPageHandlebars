@@ -1,0 +1,9 @@
+<div>
+    <h1>All the categories that you liked</h1>
+    <ul>
+        {{#each category}}
+            <a href="/{{@key}}"><li>{{@key}}: {{this}}</li></a>
+            <hr>
+        {{/each}}
+    </ul>
+</div>

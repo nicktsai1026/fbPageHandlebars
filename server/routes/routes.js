@@ -11,9 +11,8 @@ module.exports = function (app, db) {
     })
 
     // Add a seperate route for registered users to clean up the code
-    app.get('/home/:token', (req, res) => {
-        console.log('inroutes');
-        console.log(req);
+    app.get('/home', (req, res) => {
+        console.log(req.session);
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId : userId }, (err, item) => {
             if (err) return console.log(err)
@@ -76,9 +75,9 @@ module.exports = function (app, db) {
                             }
                         })
                     })
-                    //home should be change
-                    res.render('home');
-                    // res.send(pageObj)
+                    console.log(detailArr)
+                    // res.render('home', {pages: detailArr});
+                    res.redirect('/likedPage')
                 })
                 .catch((err) => {
                     console.log(err);
@@ -98,6 +97,13 @@ module.exports = function (app, db) {
         })
     })
 
+    app.get('/getCategory', (req, res) => {
+        db.collection('pagedetails').find({}).toArray((err, item) => {
+            console.log(item);
+            res.render('category')
+        })
+    })
+
     app.get('/likedPage', (req, res) => {
         // var userId = req.session.passport.user;
         var userId = '1808586925832988';
@@ -112,9 +118,13 @@ module.exports = function (app, db) {
             //count category
             categoryArr.forEach(function (x) {
                 categoryCounts[x] = (categoryCounts[x] || 0) + 1;
-
             });
-            res.send(categoryCounts);
+            var alphabetOrder = {}
+            Object.keys(categoryCounts).sort()
+                .forEach(function(category, i) {
+                    alphabetOrder[category] = categoryCounts[category]
+                });
+            res.render('category',{category: alphabetOrder})
         })
     })
 
@@ -139,12 +149,6 @@ module.exports = function (app, db) {
                 counter++;
             })
             console.log(counter);
-        })
-    })
-
-    app.get('/getCategory', (req, res) => {
-        db.collection('pagedetails').find({}).toArray((err, item) => {
-            console.log(item);
         })
     })
 }
