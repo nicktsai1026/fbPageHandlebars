@@ -79,10 +79,10 @@ module.exports = function (app, db) {
     app.get('/home', (req, res) => {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
-            var personalInfoArr= [];
             if (err) return console.log(err)
+            var personalInfoArr= [];
             personalInfoArr.push(item);
-            //set category obj
+            //set category array
             var categoryArr = [];
             item.likes.forEach((val) => {
                 categoryArr.push(val.category);
@@ -105,26 +105,41 @@ module.exports = function (app, db) {
         })
     })
 
-    // app.get('/likedPage', (req, res) => {
-    //     // var userId = req.session.passport.user;
-    //     var userId = '1808586925832988';
-    //     db.collection('users').findOne({ fbId: userId }, (err, item) => {
-    //         if (err) return console.log(err)
-    //         var pageArr = item.likes;
-    //         var categoryArr = [];
-    //         pageArr.forEach((val) => {
-    //             categoryArr.push(val.category);
-    //         })
-    //         var categoryCounts = {};
-    //         //count category
-    //         categoryArr.forEach(function (x) {
-    //             categoryCounts[x] = (categoryCounts[x] || 0) + 1;
+    app.get('/checkFriends', (req, res) => {
+        var userId = req.session.passport.user;
+        db.collection('users').findOne({ fbId: userId}, (err, item) => {
+            var friendObj = {};
+            var personalInfoArr = [];
+            personalInfoArr.push(item);
+            friendObj.profile = personalInfoArr;
+            let accessToken = item.access_token;
+            var path = `https://graph.facebook.com/v2.10/${userId}/friends?access_token=${accessToken}`;
+            axios.get(path)
+            .then((response) => {
+                var friendsArr = response.data.data;
+                var friendDetailArr = [];
+                var counter = 0;
+                friendsArr.forEach((val) => {
+                    db.collection('users').findOne({ fbId: val.id }, (err, item) => {
+                        friendDetailArr.push(item);
+                        counter++;
+                        if(counter == friendsArr.length) {
+                            friendObj.friendInfo = friendDetailArr;
+                            res.render('friends', friendObj);
+                        }
+                    })
+                })
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        })
+    })
 
-    //         });
-    //         res.send(categoryCounts);
-    //     })
-    // })
+    app.get('/showFriends', (req, res) => {
+        var userId = req.session.passport.user;
 
+    })
 
     app.get('/checkSamePages', (req, res) => {
         db.collection('pagedetails').find({}).toArray((err, item) => {
@@ -148,4 +163,7 @@ module.exports = function (app, db) {
             console.log(counter);
         })
     })
+
+
+
 }
