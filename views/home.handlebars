@@ -1,14 +1,10 @@
 <div>
-    <p>It works!</p>
-
+    <button class="btn btn-info">Find your friends who liked with you!</button>
+    <h1>All the categories that you liked</h1>
     <ul>
-        {{#pages}}
-            <li>Page name: {{name}}</li>
-            <li>No of likes: {{fan_count}}</li>
-            <li>Category: {{category}}</li>
-            <li>About: {{about}}</li>
-            <li>Link: {{link}}</li>
+        {{#each category}}
+            <a href="/{{@key}}"><li>{{@key}}: {{this}}</li></a>
             <hr>
-        {{/pages}}
+        {{/each}}
     </ul>
 </div>

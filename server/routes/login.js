@@ -6,14 +6,16 @@ module.exports = function (app, db) {
         if (req.isAuthenticated()) {
             return next();
         }
+        console.log('Not logged in')
         res.redirect('/facebookLogin');
     }
 
     app.get('/login', isLoggedIn, (req, res) => {
-        res.render('home');
+        res.redirect('/home');
     })
 
     app.get('/facebookLogin', (req, res) => {
+        console.log('Logging in!')
         res.render('login');
     })
 

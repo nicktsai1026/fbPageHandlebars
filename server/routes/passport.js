@@ -23,6 +23,7 @@ module.exports = (app, db) => {
                 if (item == null) {
                     db.collection('users').insert(fbInfoObj, (err, item) => {
                         if (err) {
+                            console.log('Error in passport')
                             console.log(err)
                         } else {
                             return cb(null, fbInfoObj);
@@ -31,7 +32,9 @@ module.exports = (app, db) => {
                 } else {
                     var updatePhoto = { fbPhoto: profile.photos[0].value };
                     db.collection('users').updateOne({ fbId: profile.id }, { $set: updatePhoto }, (err, item) => {
-                        if (err) return console.log(err)
+                        if (err) return 
+                            console.log('Error in update photo')
+                            console.log(err)
                         return cb(null, fbInfoObj);
                     })
                 }

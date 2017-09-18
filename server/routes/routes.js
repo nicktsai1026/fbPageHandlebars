@@ -42,9 +42,6 @@ module.exports = function (app, db) {
                         if (err) return console.log(err)
                         res.redirect('/setPageDetails');
                     })
-                    console.log(detailArr)
-                    // res.render('home', {pages: detailArr});
-                    res.redirect('/likedPage')
                 })
                 .catch((err) => {
                     console.log(err);
@@ -100,9 +97,11 @@ module.exports = function (app, db) {
                 .forEach(function(category, i) {
                     alphabetOrder[category] = categoryCounts[category]
                 });
-            res.render('category',{category: alphabetOrder})
-            // categoryCounts.fbInfo = personalInfoArr;
-            // res.render('home', categoryCounts);
+            categoryCounts.fbInfo = personalInfoArr;
+            res.render('home', {
+                profile: item,
+                category: alphabetOrder
+            });
         })
     })
 
