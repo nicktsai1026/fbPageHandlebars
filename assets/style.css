@@ -1,0 +1,17 @@
+.showlogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.background{
+    background: linear-gradient(-90deg, #FEDE83, #4BA2FE);
+}
+
+.landing {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.title {
+    font-size: 65px; 
+}
