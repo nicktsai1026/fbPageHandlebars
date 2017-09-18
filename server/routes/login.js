@@ -3,10 +3,10 @@ const passport = require('passport');
 module.exports = function (app, db) {
     
     function isLoggedIn(req, res, next) {
+        console.log(req._passport.instance._userProperty)
         if (req.isAuthenticated()) {
             return next();
         }
-        console.log('Not logged in')
         res.redirect('/facebookLogin');
     }
 
@@ -15,7 +15,6 @@ module.exports = function (app, db) {
     })
 
     app.get('/facebookLogin', (req, res) => {
-        console.log('Logging in!')
         res.render('login');
     })
 

@@ -6,15 +6,15 @@ module.exports = function (app, db) {
     //const getUser = new GetUser(app, db);
     app.get('/setLikePages', (req, res) => {
         var userId = req.session.passport.user;
-        db.collection('users').findOne({ fbId : userId }, (err, item) => {
+        db.collection('users').findOne({ fbId: userId }, (err, item) => {
             if (err) return console.log(err)
-            var accessToken = item.access_token ;
+            var accessToken = item.access_token;
             var path = `https://graph.facebook.com/v2.10/${userId}/likes?fields=name,fan_count,category,about,link,picture&access_token=${accessToken}`;
             getLikePages.pageDetails(path)
                 .then((details) => {
                     //check user likes page (for existed users)
                     var newPageIdOnly = details[1];
-                    if(item.likes) {
+                    if (item.likes) {
                         var oldPageIdOnly = [];
                         item.likes.forEach((val) => {
                             oldPageIdOnly.push(val.id);
@@ -24,7 +24,7 @@ module.exports = function (app, db) {
                         // ab difference set 差集
                         let differenceABSet = new Set([...a].filter(x => !b.has(x)));
                         let differenceArr = Array.from(differenceABSet);
-        
+
                         differenceArr.forEach((value) => {
                             db.collection('pagedetails').findOne({ id: value }, (err, item) => {
                                 var newFbUserId = item.fbUserId.filter(function (id) {
@@ -45,13 +45,13 @@ module.exports = function (app, db) {
                 })
                 .catch((err) => {
                     console.log(err);
-                })           
-            })
+                })
         })
+    })
 
     app.get('/setPageDetails', (req, res) => {
         var userId = req.session.passport.user;
-        db.collection('users').findOne({ fbId: userId}, (err,item) => {
+        db.collection('users').findOne({ fbId: userId }, (err, item) => {
             if (err) return console.log(err)
             item.likes.forEach((val) => {
                 db.collection('pagedetails').findOne({ id: val.id }, (err, item) => {
@@ -69,7 +69,7 @@ module.exports = function (app, db) {
                                 if (err) return console.log(err)
                             })
                         }
-                    } 
+                    }
                 })
             })
         })
@@ -82,25 +82,34 @@ module.exports = function (app, db) {
             if (err) return console.log(err)
             var personalInfoArr= [];
             personalInfoArr.push(item);
-            //set category array
             var categoryArr = [];
             item.likes.forEach((val) => {
                 categoryArr.push(val.category);
             })
-            //count category
-            var categoryCounts = {};
+
+            var categoryCounts = {}; //count category
             categoryArr.forEach(function (x) {
                 categoryCounts[x] = (categoryCounts[x] || 0) + 1;
             });
-            var alphabetOrder = {}
-            Object.keys(categoryCounts).sort()
-                .forEach(function(category, i) {
-                    alphabetOrder[category] = categoryCounts[category]
-                });
+
+            var allCounts = []
+            Object.keys(categoryCounts).forEach(function(key) {
+                allCounts.push([key,categoryCounts[key]])
+            });
+
+            function Comparator(a, b) {
+                if (a[1] < b[1]) return 1;
+                if (a[1] > b[1]) return -1;
+                return 0;
+              }
+
+            allCounts = allCounts.sort(Comparator);              
+
+            console.log(allCounts)
             categoryCounts.fbInfo = personalInfoArr;
             res.render('home', {
                 profile: item,
-                category: alphabetOrder
+                category: allCounts
             });
         })
     })
@@ -146,7 +155,7 @@ module.exports = function (app, db) {
             var pageArr = [];
             item.forEach((val) => {
                 var checkArr = val.fbUserId;
-                if(checkArr != null && checkArr.length > 1) {
+                if (checkArr != null && checkArr.length > 1) {
                     pageArr.push(val);
                 }
             })
@@ -156,8 +165,8 @@ module.exports = function (app, db) {
 
     app.get('/morris', (req, res) => {
         var counter = 0;
-        db.collection('users').findOne({ fbId: '10155438871243820'}, (err, item) => {
-            item.likes.forEach((val)=>{
+        db.collection('users').findOne({ fbId: '10155438871243820' }, (err, item) => {
+            item.likes.forEach((val) => {
                 counter++;
             })
             console.log(counter);

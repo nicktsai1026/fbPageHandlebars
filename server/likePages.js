@@ -20,12 +20,13 @@ function pageDetails (path) {
                         console.log('done');
                         return pageData
                     } else {
-                        console.log(nextPage);
+                        // console.log(nextPage);
                         getDetail(nextPage)
                     }
                 })
-                .then((data) => {
+                .then((data) => {   
                     if (data != undefined) {
+                        console.log('Gets into data and its undefined')
                         var pageIdArr = [];
                         data.forEach((val) => {
                             pageIdArr.push(val.id);
