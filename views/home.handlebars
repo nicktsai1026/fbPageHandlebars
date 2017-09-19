@@ -11,13 +11,16 @@
 <div class="container-fluid catContainer">
     {{#each category as |item|}}
         <div class="col-xs-6 col-md-4 category">
+<<<<<<< HEAD
+=======
+            <a href="/category/{{item.[0]}}">
+>>>>>>> e48b46a3d4968209f40975be95eb73c1592acb91
             <div class="thumbnail">
                 <img src="" alt="">
-                <a href="{{ item.[0] }}">
-                    <p>{{ item.[0] }}</p>
-                </a>
+                <p>{{item.[0]}}</p>
                 <span class="badge">{{ item.[1] }} Pages</span>
             </div>
+            </a>
         </div>
     {{/each}} 
 </div>
