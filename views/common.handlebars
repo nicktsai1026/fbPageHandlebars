@@ -1,0 +1,18 @@
+<div>
+    <a href="/home"><button>Home</button></a>
+    <a href="/checkFriends"><button>Return</button></a>
+</div>
+<div>
+    {{#commonPages}}
+    <div class="fansPage col-sm-12">
+        <a href="{{link}}">
+            <div>
+            <img src="{{picture.data.url}}" alt="picture">
+            <h1>{{name}}</h1>
+            <p>Like: {{fan_count}}</p><img src="http://vectorlogo4u.com/wp-content/uploads/2016/09/facebook-like-icon-720x340.png" alt="like icon">
+            <p>About:{{about}}</p>
+            </div>
+        </a>
+    </div>
+    {{/commonPages}}
+</div>
