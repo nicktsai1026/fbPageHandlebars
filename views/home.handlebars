@@ -6,13 +6,13 @@
 <div>
     {{#each category as |item|}}
         <div class="col-xs-6 col-md-3 category">
+            <a href="/category/{{item.[0]}}">
             <div class="thumbnail">
                 <img src="" alt="">
-                <a href="{{ item.[0] }}">
-                    <p>{{ item.[0] }}</p>
-                </a>
+                <p>{{item.[0]}}</p>
                 <span class="badge">{{ item.[1] }} Pages</span>
             </div>
+            </a>
         </div>
     {{/each}} 
 </div>

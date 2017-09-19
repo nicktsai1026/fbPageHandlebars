@@ -80,8 +80,6 @@ module.exports = function (app, db) {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
             if (err) return console.log(err)
-            // var personalInfoArr= [];
-            // personalInfoArr.push(item);
             var categoryArr = [];
             var pageCounter = 0;
             item.likes.forEach((val) => {
@@ -105,10 +103,7 @@ module.exports = function (app, db) {
                 if (a[1] > b[1]) return -1;
                 return 0;
               }
-
-            allCounts = allCounts.sort(Comparator);              
-            console.log(allCounts)
-            // categoryCounts.fbInfo = personalInfoArr;
+            allCounts = allCounts.sort(Comparator);
 
             res.render('home', {
                 profile: item,
@@ -167,6 +162,49 @@ module.exports = function (app, db) {
                 res.render('common', commonObj);
             })
         }) 
+    })
+
+    app.get('/category/:item', (req, res) => {
+        var categoryName = req.params.item;
+        var userId = req.session.passport.user;
+        db.collection('users').findOne({ fbId: userId }, (err, item) => {
+            var showCategoriesArr = [];
+            var counter = 0;
+            item.likes.forEach((val) => {
+                counter++;
+                if (val.category == categoryName) {
+                    showCategoriesArr.push(val);
+                }
+                if(counter == item.likes.length) {
+                    var showCategoriesObj = {};
+                    showCategoriesObj.profile = item;
+                    showCategoriesObj.selectedCategory = showCategoriesArr;
+                    res.render('personalLikePages', showCategoriesObj);
+                }
+            })
+        }) 
+    })
+
+    app.get('/category/:item/:item', (req, res) => {
+        var userId = req.session.passport.user;
+        var path = req.originalUrl;
+        var categoryName = path.replace('/category/', '').replace('%20', ' ');
+        db.collection('users').findOne({ fbId: userId }, (err, item) => {
+            var showCategoriesArr = [];
+            var counter = 0;
+            item.likes.forEach((val) => {
+                counter++;
+                if (val.category == categoryName) {
+                    showCategoriesArr.push(val);
+                }
+                if (counter == item.likes.length) {
+                    var showCategoriesObj = {};
+                    showCategoriesObj.profile = item;
+                    showCategoriesObj.selectedCategory = showCategoriesArr;
+                    res.render('personalLikePages', showCategoriesObj);
+                }
+            })
+        })
     })
 
     app.get('/checkSamePages', (req, res) => {
