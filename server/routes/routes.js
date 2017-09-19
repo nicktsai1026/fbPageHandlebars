@@ -207,29 +207,5 @@ module.exports = function (app, db) {
         })
     })
 
-    app.get('/checkSamePages', (req, res) => {
-        db.collection('pagedetails').find({}).toArray((err, item) => {
-            var pageArr = [];
-            item.forEach((val) => {
-                var checkArr = val.fbUserId;
-                if (checkArr != null && checkArr.length > 1) {
-                    pageArr.push(val);
-                }
-            })
-            // console.log(pageArr);
-        })
-    })
-
-    app.get('/nick', (req, res) => {
-        var counter = 0;
-        db.collection('users').findOne({ fbId: '1808586925832988' }, (err, item) => {
-            item.likes.forEach((val) => {
-                counter++;
-            })
-            console.log(counter);
-        })
-    })
-
-
 
 }

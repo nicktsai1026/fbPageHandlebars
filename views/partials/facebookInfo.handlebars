@@ -1,9 +1,34 @@
+<div class="row clearfix well">
+    <div class="col-md-2 column">
+        {{#profile}}
+            <img class="img-thumbnail" alt="140x140" src="{{fbPhoto}}" />
+            <p>{{fbName}}</p>
+        {{/profile}}
+        {{#totalPage}}
+            <p>Total liked pages: {{total}}</p>
+        {{/totalPage}}
+    </div>
+    <div class="col-md-8 column">
+        {{#profile}}
+            <h1>Welcome {{fbName}}!</h1>
+        {{/profile}}
+    </div>
+    <div class="col-md-2 column">
+        <button class="btn btn-default btn-block" type="button">
+            See what your friends likes
+        </button>
+        <button class="btn btn-default btn-block" type="button">
+            Share it to your friends
+        </button>
+    </div>
+</div>
+{{!--
 <div class="profile">
     {{#profile}}
     <img src="{{fbPhoto}}" alt="personal photo">
     <h4>{{fbName}}</h4>
-    {{/profile}}
-    {{#totalPage}}
+    {{/profile}} {{#totalPage}}
     <p>Total pages: {{total}}</p>
     {{/totalPage}}
-</div>
+    <a href="/checkFriends"><button class="btn btn-info">Find your friends who liked with you!</button></a>
+</div> --}}

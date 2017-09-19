@@ -1,5 +1,4 @@
 <div class="container-fluid subHead">
-    <a href="/checkFriends"><button class="btn btn-info">Find your friends who liked with you!</button></a>
     <h1 align="center">All the categories that you liked, {{category.length}} of them to be exact!</h1>
 </div>
 
@@ -9,7 +8,7 @@
   </div>
 </div>
 
-<div>
+<div class="container-fluid catContainer">
     {{#each category as |item|}}
         <div class="col-xs-6 col-md-4 category">
             <a href="/category/{{item.[0]}}">
@@ -22,17 +21,3 @@
         </div>
     {{/each}} 
 </div>
-
-<script>
-    //let category = 'Media/News Company'
-    let category = 'Non-Governmental Organization (NGO)'
-    $.ajax({
-        url: 'https://api.cognitive.microsoft.com/bing/v5.0/images/search?q=' + category + '&mkt=en-us',
-        headers: { 'Ocp-Apim-Subscription-Key': 'ad855c1b69864a86be43a645b2a76f50' }
-    })
-    .done(function( data ) {
-        if ( data ) {
-            console.log(data.value[0].contentUrl);
-        }
-    });;
-</script>
