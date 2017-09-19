@@ -80,8 +80,7 @@ module.exports = function (app, db) {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
             if (err) return console.log(err)
-            // var personalInfoArr= [];
-            // personalInfoArr.push(item);
+
             var categoryArr = [];
             var pageCounter = 0;
             item.likes.forEach((val) => {
@@ -106,9 +105,7 @@ module.exports = function (app, db) {
                 return 0;
               }
 
-            allCounts = allCounts.sort(Comparator);              
-            console.log(allCounts)
-            // categoryCounts.fbInfo = personalInfoArr;
+            allCounts = allCounts.sort(Comparator);
 
             res.render('home', {
                 profile: item,

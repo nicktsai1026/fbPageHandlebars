@@ -5,8 +5,11 @@
 }
 
 .background{
-    /* d1fdff, fddb92 */
     background: linear-gradient(75deg, #5B709E, #A0AECB);
+}
+
+.profile{
+    background: linear-gradient(75deg, #CBCBCB, #FFFFFF);
 }
 
 .landing {
@@ -43,8 +46,4 @@
 .thumbnail {
     height: 80px;
     background-image: linear-gradient(135deg, #f7f7f7 0%, #dfe3ee 100%);
-}
-
-.friend{
-
 }
