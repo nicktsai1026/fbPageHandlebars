@@ -1,12 +1,21 @@
 <div>
     <a href="/home"><button>Return</button></a>
 </div>
-<div>
+<div class="container-fluid">
     {{#friendInfo}}
     <div class="col-sm-4">
         <img src="{{fbPhoto}}" alt="personal photo">
         {{!-- <input type="hidden" name="userId" value="{{fbId}}"> --}}
         <a href="/friends/commonpages/{{fbId}}"><h4>{{fbName}}</h4></a>
     </div>
-    {{/friendInfo}}
+    {{/friendInfo}} --}}
+
+    <ul class="list-group">
+        {{#friendInfo}}
+        <li class="list-group-item">
+            <img src="{{fbPhoto}}" alt="profile picture">
+            <span>{{fbName}}</span>
+        </li>
+        {{/friendInfo}}
+    </ul>
 </div>

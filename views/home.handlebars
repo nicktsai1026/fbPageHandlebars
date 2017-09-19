@@ -1,11 +1,17 @@
-<div class="subHead">
+<div class="container-fluid subHead">
     <a href="/checkFriends"><button class="btn btn-info">Find your friends who liked with you!</button></a>
-    <h1>All the categories that you liked, {{category.length}} of them to be exact!</h1>
+    <h1 align="center">All the categories that you liked, {{category.length}} of them to be exact!</h1>
+</div>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+    {{!-- <span class="sr-only">40% Complete (success)</span> --}}
+  </div>
 </div>
 
 <div>
     {{#each category as |item|}}
-        <div class="col-xs-6 col-md-3 category">
+        <div class="col-xs-6 col-md-4 category">
             <a href="/category/{{item.[0]}}">
             <div class="thumbnail">
                 <img src="" alt="">
@@ -18,6 +24,15 @@
 </div>
 
 <script>
-    var xhr = $.get("https://pixabay.com/api/?key=6481365-4c883cd5613889ea4a2ab672f&q=yellow+flowers&image_type=photo");
-    xhr.done(function(data) { console.log("success got data", data); });
+    //let category = 'Media/News Company'
+    let category = 'Non-Governmental Organization (NGO)'
+    $.ajax({
+        url: 'https://api.cognitive.microsoft.com/bing/v5.0/images/search?q=' + category + '&mkt=en-us',
+        headers: { 'Ocp-Apim-Subscription-Key': 'ad855c1b69864a86be43a645b2a76f50' }
+    })
+    .done(function( data ) {
+        if ( data ) {
+            console.log(data.value[0].contentUrl);
+        }
+    });;
 </script>
