@@ -3,13 +3,21 @@
     <h1>All the categories that you liked, {{category.length}} of them to be exact!</h1>
 </div>
 
-<div class="categoryList">
-    {{!-- <ul> --}}
-        {{#each category as |item|}}
-            <a href="{{ item.[0] }}">
-                <h4>{{ item.[0] }} : {{ item.[1] }}</he4>
-            </a>
-            <hr>
-        {{/each}}
-    {{!-- </ul> --}}
+<div>
+    {{#each category as |item|}}
+        <div class="col-xs-6 col-md-3 category">
+            <div class="thumbnail">
+                <img src="" alt="">
+                <a href="{{ item.[0] }}">
+                    <p>{{ item.[0] }}</p>
+                </a>
+                <span class="badge">{{ item.[1] }} Pages</span>
+            </div>
+        </div>
+    {{/each}} 
 </div>
+
+<script>
+    var xhr = $.get("https://pixabay.com/api/?key=6481365-4c883cd5613889ea4a2ab672f&q=yellow+flowers&image_type=photo");
+    xhr.done(function(data) { console.log("success got data", data); });
+</script>
