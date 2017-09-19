@@ -5,7 +5,8 @@
 }
 
 .background{
-    background: linear-gradient(90deg, #FEDE83, #4BA2FE);
+    /* background: linear-gradient(90deg, #FEDE83, #4BA2FE); */
+    background: linear-gradient(90deg, #d1fdff, #fddb92);
 }
 
 .landing {
@@ -29,8 +30,10 @@
     align-items: center;
 }
 
-.categoryList{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.category{
+    text-align: center;
+}
+
+.thumbnail {
+    background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
 }
