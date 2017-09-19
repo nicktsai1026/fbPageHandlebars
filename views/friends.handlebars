@@ -1,8 +1,17 @@
-<div>
-    {{#friendInfo}}
-    <div class="col-sm-4">
+<div class="container-fluid">
+    {{!-- {{#friendInfo}}
+    <div class="col-sm-4 friend">
         <img src="{{fbPhoto}}" alt="personal photo">
         <h4>{{fbName}}</h4>
     </div>
-    {{/friendInfo}}
+    {{/friendInfo}} --}}
+
+    <ul class="list-group">
+        {{#friendInfo}}
+        <li class="list-group-item">
+            <img src="{{fbPhoto}}" alt="profile picture">
+            <span>{{fbName}}</span>
+        </li>
+        {{/friendInfo}}
+    </ul>
 </div>

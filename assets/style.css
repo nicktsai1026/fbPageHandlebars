@@ -5,8 +5,8 @@
 }
 
 .background{
-    /* background: linear-gradient(90deg, #FEDE83, #4BA2FE); */
-    background: linear-gradient(90deg, #d1fdff, #fddb92);
+    /* d1fdff, fddb92 */
+    background: linear-gradient(75deg, #5B709E, #A0AECB);
 }
 
 .landing {
@@ -30,10 +30,21 @@
     align-items: center;
 }
 
+.progress-bar{
+    /* background-image: linear-gradient(120deg, #4d651d 0%, #4d651d 100%); */
+    background-image: linear-gradient(120deg, #dfe3ee 0%, #f7f7f7	 100%);
+    background-color: rgb(255,255,255, 0.1)
+}
+
 .category{
     text-align: center;
 }
 
 .thumbnail {
-    background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+    height: 80px;
+    background-image: linear-gradient(135deg, #f7f7f7 0%, #dfe3ee 100%);
+}
+
+.friend{
+
 }
