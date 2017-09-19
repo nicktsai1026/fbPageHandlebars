@@ -80,13 +80,16 @@ module.exports = function (app, db) {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
             if (err) return console.log(err)
-            var personalInfoArr= [];
-            personalInfoArr.push(item);
+            // var personalInfoArr= [];
+            // personalInfoArr.push(item);
             var categoryArr = [];
+            var pageCounter = 0;
             item.likes.forEach((val) => {
                 categoryArr.push(val.category);
+                pageCounter++;
             })
-
+            var pageCounterObj ={};
+            pageCounterObj.total = pageCounter;
             var categoryCounts = {}; //count category
             categoryArr.forEach(function (x) {
                 categoryCounts[x] = (categoryCounts[x] || 0) + 1;
@@ -104,11 +107,12 @@ module.exports = function (app, db) {
               }
 
             allCounts = allCounts.sort(Comparator);              
-
             console.log(allCounts)
-            categoryCounts.fbInfo = personalInfoArr;
+            // categoryCounts.fbInfo = personalInfoArr;
+
             res.render('home', {
                 profile: item,
+                totalPage: pageCounterObj,
                 category: allCounts
             });
         })
@@ -145,9 +149,24 @@ module.exports = function (app, db) {
         })
     })
 
-    app.get('/showFriends', (req, res) => {
+    app.get('/friends/commonpages/:id', (req, res) => {
+        var friendId = req.params.id;
         var userId = req.session.passport.user;
-
+        db.collection('users').findOne({ fbId: userId }, (err, userItem) => {
+            var commonObj = {};
+            commonObj.profile = userItem;
+            db.collection('pagedetails').find({}).toArray((err, item) => {
+                var commonArr = [];
+                item.forEach((val) => {
+                    var checkArr = val.fbUserId;
+                    if (checkArr.indexOf(userId) > -1 && checkArr.indexOf(friendId) > -1) {
+                        commonArr.push(val);
+                    }
+                })
+                commonObj.commonPages = commonArr;
+                res.render('common', commonObj);
+            })
+        }) 
     })
 
     app.get('/checkSamePages', (req, res) => {
@@ -163,9 +182,9 @@ module.exports = function (app, db) {
         })
     })
 
-    app.get('/morris', (req, res) => {
+    app.get('/nick', (req, res) => {
         var counter = 0;
-        db.collection('users').findOne({ fbId: '10155438871243820' }, (err, item) => {
+        db.collection('users').findOne({ fbId: '1808586925832988' }, (err, item) => {
             item.likes.forEach((val) => {
                 counter++;
             })
