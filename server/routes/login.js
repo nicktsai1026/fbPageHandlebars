@@ -7,14 +7,15 @@ module.exports = function (app, db) {
         if (req.isAuthenticated()) {
             return next();
         }
-        res.redirect('/facebookLogin');
+        res.redirect('/login');
     }
 
-    app.get('/login', isLoggedIn, (req, res) => {
+    app.get('/', isLoggedIn, (req, res) => {
         res.redirect('/home');
     })
 
-    app.get('/facebookLogin', (req, res) => {
+    app.get('/login', (req, res) => {
+        //hide the header partials here
         res.render('login');
     })
 
