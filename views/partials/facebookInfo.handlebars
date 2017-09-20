@@ -1,29 +1,54 @@
 <div class="header clearfix container-fluid">
-    <div class="col-md-2 column container-fluid">
+    <div class="col-md-4 column container-fluid">
         {{#profile}}
-            <img class="img-thumbnail" alt="140x140" src="{{fbPhoto}}" />
-            <p>{{fbName}}</p>
-            <p>Total liked pages: {{totalPage}}</p>
+        <div class="profile-div">
+            <img class="profile-pic profile" alt="140x140" src="{{fbPhoto}}" />
+            <h4 class="profile">Welcome {{fbName}}!</h4>
+        </div>
         {{/profile}}
-
+        {{#profile}}
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group" role="group">
+                <a href="/home">
+                    <button type="button" class="btn btn-default">Category</button>
+                </a>
+            </div>
+            <div class="btn-group" role="group">
+                <a href="/home">
+                    <button type="button" class="btn btn-default">Timeline</button>
+                </a>
+            </div>
+            <div class="btn-group" role="group">
+                <a href="/home">
+                    <button type="button" class="btn btn-default">Favourite</button>
+                </a>
+            </div>
+            <div class="btn-group" role="group">
+                <a href="/checkFriends">
+                <button type="button" class="btn btn-default">Friends</button>
+                </a>
+            </div>
+        </div>
+        {{/profile}}
     </div>
-    {{#profile}}
-    {{!-- <a href="/home"> --}}
     <div class="col-md-8 column">
-            <h1>Welcome {{fbName}}!</h1>
+        {{#profile}}
+            <h1 align="right">Thats what you liked</h1>
+            <h4 align="right">You liked {{totalPage}} pages!</h4>
+            <div align="right">
+                <div class="btn-group" role="group">
+                    <a href="/share">
+                    <button type="button" class="btn btn-default">Share</button>
+                    </a>
+                </div>
+                <div class="btn-group" role="group">
+                    <a href="/logout">
+                    <button type="button" class="btn btn-default">Logout</button>
+                    </a>
+                </div>
+            </div>
+        {{/profile}}
     </div>
-    {{!-- </a> --}}
-    <div class="col-md-2 column">
-        <a href="/checkFriends">
-            <button class="btn btn-default" type="button">
-                See your "common likes"
-            </button>
-        </a>
-        <button class="btn btn-default" type="button">
-            Share it to your friends
-        </button>
-    </div>
-    {{/profile}}
 </div>
 {{#profile}}
 <div class="progress">
@@ -31,13 +56,3 @@
     </div>
 </div>
 {{/profile}}
-{{!--
-<div class="profile">
-    {{#profile}}
-    <img src="{{fbPhoto}}" alt="personal photo">
-    <h4>{{fbName}}</h4>
-    {{/profile}} {{#totalPage}}
-    <p>Total pages: {{total}}</p>
-    {{/totalPage}}
-    <a href="/checkFriends"><button class="btn btn-info">Find your friends who liked with you!</button></a>
-</div> --}}

@@ -1,37 +1,27 @@
-<div>
-    <a href="/home"><button>Home</button></a>
-</div>
+
 <div class="container-fluid">
     <div class="list-group">
-    {{#selectedCategory}}
-    <a href="{{link}}" target="_blank" class="list-group-item">
-        <img src="{{picture.data.url}}" alt="picture">
-        <span class="list-group-item-heading">{{name}}</span>
-        <span class="list-group-item-text">Likes: {{fan_count}}</span>
-        <span class="list-group-item-text">About:{{about}}</span>
-    </a>
-        <div>
-            <a href="#{{id}}"><img id="{{id}}" class="unlike" src="../../assets/svg/{{favor}}.svg" alt="heart"></a>
+        <div class="list-group-item">
+            <a href="/home"><span class="glyphicon glyphicon-chevron-left"></span>Back to category
+            </a>
         </div>
-    {{/selectedCategory}}
-</div>
-</div>
-
-<div>
-    {{!-- {{#selectedCategory}} --}}
-    {{!-- <div class="fansPage col-sm-12">
-        {{!-- <div class="col-sm-6"> --}}
-        <a href="{{link}}" target="_blank">
-            <div>
-                <img src="{{picture.data.url}}" alt="picture">
-                <h1>{{name}}</h1>
-                <p>Like: {{fan_count}}</p>
-                {{!-- <img src="http://vectorlogo4u.com/wp-content/uploads/2016/09/facebook-like-icon-720x340.png"
-                    alt="like icon"> --}}
-                <p>About:{{about}}</p>
-            </div>
-        </a>
+        {{#selectedCategory}}
+        <div class="list-group-item">
+            <span class="pageItem">
+                <span class="list-group-item-text">{{fan_count}} Likes</span>
+                <img id="{{id}}" class="unlike" href="#{{id}}"
+                src="../../assets/svg/{{favor}}.svg" width="40" height="40" alt="heart">
+            </span>
+            <a href="{{link}}" target="_blank">
+                <img class="pageImg" src="{{picture.data.url}}" alt="picture">
+                <h3 class="list-group-item-heading">{{name}}</h3>
+                <span class="list-group-item-text">About:{{about}}</span>
+            </a>
         </div>
-    </div> --}}
-    {{!-- {{/selectedCategory}} --}}
+        {{/selectedCategory}}
+        <div class="list-group-item">
+            <a href="/home"><span class="glyphicon glyphicon-chevron-left"></span>Back to category
+            </a>
+        </div>
+    </div>
 </div>
