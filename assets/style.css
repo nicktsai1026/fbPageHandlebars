@@ -73,3 +73,7 @@
 .pageImg {
     margin-bottom: 5px;
 }
+
+.finger:hover {
+    cursor: pointer;
+}
