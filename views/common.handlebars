@@ -5,19 +5,22 @@
 
 <div class="container-fluid">
     <div class="list-group">
-    {{#commonPages}}
-    <a href="{{link}}" target="_blank" class="list-group-item">
         <div>
-            <img src="{{picture.data.url}}" alt="picture">
-            <span class="list-group-item-heading">{{name}}</span>
-            <span class="list-group-item-text badge">Likes: {{fan_count}}</span>
+            <p>Common pages: {{pageCounter}}</p>
         </div>
-        <br>
-        <div>
-            <p class="list-group-item-text">About:{{about}}</p>
-        </div>
-    </a>
-    {{/commonPages}}
+        {{#commonPages}}
+        <a href="{{link}}" target="_blank" class="list-group-item">
+            <div>
+                <img src="{{picture.data.url}}" alt="picture">
+                <span class="list-group-item-heading">{{name}}</span>
+                <span class="list-group-item-text badge">Likes: {{fan_count}}</span>
+            </div>
+            <br>
+            <div>
+                <p class="list-group-item-text">About:{{about}}</p>
+            </div>
+        </a>
+        {{/commonPages}}
     </div>
 </div>
 {{!-- <div>
