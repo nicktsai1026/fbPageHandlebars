@@ -39,4 +39,28 @@
         $("#titleImg").attr("src", data.data[0].embed_url);
     });
 
+    $(document).ready(function(){
+        var id = null;
+        $('.unlike').click(function(){
+            if($(this).attr('src')==='../../assets/svg/unlike.svg') {
+                $(this).attr('src','../../assets/svg/like.svg');
+            }
+            else {
+                $(this).attr('src','../../assets/svg/unlike.svg');
+            }
+
+            id = $(this).attr('id');
+
+            $.ajax({
+                type:"POST",
+                data: {addFavorId:id},
+                url: 'http://localhost:8080/addFavor',
+                success: function (data) {
+                    console.log('success');
+                    console.log(JSON.stringify(data));
+                }
+            })
+        });
+    });
+
 </script>

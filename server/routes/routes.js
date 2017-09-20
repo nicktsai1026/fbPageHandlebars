@@ -53,7 +53,9 @@ module.exports = function (app, db) {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
             if (err) return console.log(err)
+            var pageCounter = 0;
             item.likes.forEach((val) => {
+                pageCounter++;
                 db.collection('pagedetails').findOne({ id: val.id }, (err, item) => {
                     if (item == null) {
                         val.fbUserId = [userId];
@@ -72,6 +74,9 @@ module.exports = function (app, db) {
                     }
                 })
             })
+            db.collection('users').updateOne({ fbId: userId }, { $set: { totalPage: pageCounter }}, (err, item) => {
+                if (err) return console.log(err);
+            })
         })
         res.redirect('/home');
     })
@@ -81,13 +86,9 @@ module.exports = function (app, db) {
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
             if (err) return console.log(err)
             var categoryArr = [];
-            var pageCounter = 0;
             item.likes.forEach((val) => {
                 categoryArr.push(val.category);
-                pageCounter++;
             })
-            var pageCounterObj ={};
-            pageCounterObj.total = pageCounter;
             var categoryCounts = {}; //count category
             categoryArr.forEach(function (x) {
                 categoryCounts[x] = (categoryCounts[x] || 0) + 1;
@@ -107,7 +108,6 @@ module.exports = function (app, db) {
 
             res.render('home', {
                 profile: item,
-                totalPage: pageCounterObj,
                 category: allCounts
             });
         })
@@ -173,6 +173,16 @@ module.exports = function (app, db) {
             item.likes.forEach((val) => {
                 counter++;
                 if (val.category == categoryName) {
+                    if (item.favor != null) {
+                        var judge = item.favor.indexOf(val.id);
+                        if(judge >= 0) {
+                            val.favor = 'like';
+                        } else {
+                            val.favor = 'unlike';
+                        }
+                    } else {
+                        val.favor = 'unlike';
+                    }
                     showCategoriesArr.push(val);
                 }
                 if(counter == item.likes.length) {
@@ -195,6 +205,16 @@ module.exports = function (app, db) {
             item.likes.forEach((val) => {
                 counter++;
                 if (val.category == categoryName) {
+                    if (item.favor != null) {
+                        var judge = item.favor.indexOf(val.id);
+                        if (judge >= 0) {
+                            val.favor = 'like';
+                        } else {
+                            val.favor = 'unlike';
+                        }
+                    } else {
+                        val.favor = 'unlike';
+                    }
                     showCategoriesArr.push(val);
                 }
                 if (counter == item.likes.length) {
@@ -204,6 +224,32 @@ module.exports = function (app, db) {
                     res.render('personalLikePages', showCategoriesObj);
                 }
             })
+        })
+    })
+
+    app.post('/addFavor', (req, res) => {
+        var favorId = req.body.addFavorId;
+        var userId = req.session.passport.user;
+        db.collection('users').findOne({ fbId: userId }, (err, item) => {
+            if(item.favor == null) {
+                db.collection('users').updateOne({ fbId: userId }, { $set: { favor: [favorId] }}, (err, item) => {
+                    if (err) return console.log(err)
+                })
+            } else {
+                var favorArr = item.favor;
+                var judge = favorArr.indexOf(favorId);
+                if (judge >= 0) {
+                    favorArr.splice(judge, 1);
+                    db.collection('users').updateOne({ fbId: userId }, { $set: { favor: favorArr }}, (err, item) => {
+                        if (err) return console.log(err);
+                    })
+                } else {
+                    favorArr.push(favorId);
+                    db.collection('users').updateOne({ fbId: userId }, { $set: { favor: favorArr } }, (err, item) => {
+                        if (err) return console.log(err);
+                    })
+                }
+            }
         })
     })
 
