@@ -9,11 +9,11 @@
         {{/totalPage}}
     </div>
     {{#profile}}
-    <a href="/home">
+    {{!-- <a href="/home"> --}}
     <div class="col-md-8 column">
             <h1>Welcome {{fbName}}!</h1>
     </div>
-    </a>
+    {{!-- </a> --}}
     <div class="col-md-2 column">
         <a href="/checkFriends">
             <button class="btn btn-default" type="button">
@@ -24,12 +24,14 @@
             Share it to your friends
         </button>
     </div>
-    <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-        </div>
-    </div>
     {{/profile}}
 </div>
+{{#profile}}
+<div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+    </div>
+</div>
+{{/profile}}
 {{!--
 <div class="profile">
     {{#profile}}
