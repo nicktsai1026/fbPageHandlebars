@@ -1,23 +1,37 @@
 <div>
     <a href="/home"><button>Home</button></a>
 </div>
-<div>
+<div class="container-fluid">
+    <div class="list-group">
     {{#selectedCategory}}
-    <div class="fansPage col-sm-12">
-        <div class="col-sm-6">
+    <a href="{{link}}" target="_blank" class="list-group-item">
+        <img src="{{picture.data.url}}" alt="picture">
+        <span class="list-group-item-heading">{{name}}</span>
+        <span class="list-group-item-text">Likes: {{fan_count}}</span>
+        <span class="list-group-item-text">About:{{about}}</span>
+    </a>
+        <div>
+            <a href="#{{id}}"><img id="{{id}}" class="unlike" src="../../assets/svg/{{favor}}.svg" alt="heart"></a>
+        </div>
+    {{/selectedCategory}}
+</div>
+</div>
+
+<div>
+    {{!-- {{#selectedCategory}} --}}
+    {{!-- <div class="fansPage col-sm-12">
+        {{!-- <div class="col-sm-6"> --}}
         <a href="{{link}}" target="_blank">
             <div>
                 <img src="{{picture.data.url}}" alt="picture">
                 <h1>{{name}}</h1>
-                <p>Like: {{fan_count}}</p><img src="http://vectorlogo4u.com/wp-content/uploads/2016/09/facebook-like-icon-720x340.png"
-                    alt="like icon">
+                <p>Like: {{fan_count}}</p>
+                {{!-- <img src="http://vectorlogo4u.com/wp-content/uploads/2016/09/facebook-like-icon-720x340.png"
+                    alt="like icon"> --}}
                 <p>About:{{about}}</p>
             </div>
         </a>
         </div>
-        <div class="col-sm-6">
-            <a href="#{{id}}"><img id="{{id}}" class="unlike" src="../../assets/svg/{{favor}}.svg" alt="heart"></a>
-        </div>
-    </div>
-    {{/selectedCategory}}
+    </div> --}}
+    {{!-- {{/selectedCategory}} --}}
 </div>

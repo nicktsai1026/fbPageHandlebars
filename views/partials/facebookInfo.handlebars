@@ -1,5 +1,5 @@
-<div class="row clearfix well">
-    <div class="col-md-2 column">
+<div class="header clearfix container-fluid">
+    <div class="col-md-2 column container-fluid">
         {{#profile}}
             <img class="img-thumbnail" alt="140x140" src="{{fbPhoto}}" />
             <p>{{fbName}}</p>
@@ -7,19 +7,27 @@
         {{/profile}}
 
     </div>
+    {{#profile}}
+    <a href="/home">
     <div class="col-md-8 column">
-        {{#profile}}
             <h1>Welcome {{fbName}}!</h1>
-        {{/profile}}
     </div>
+    </a>
     <div class="col-md-2 column">
-        <button class="btn btn-default btn-block" type="button">
-            See what your friends likes
-        </button>
-        <button class="btn btn-default btn-block" type="button">
+        <a href="/checkFriends">
+            <button class="btn btn-default" type="button">
+                See your "common likes"
+            </button>
+        </a>
+        <button class="btn btn-default" type="button">
             Share it to your friends
         </button>
     </div>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+        </div>
+    </div>
+    {{/profile}}
 </div>
 {{!--
 <div class="profile">
