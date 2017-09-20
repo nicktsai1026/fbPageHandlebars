@@ -14,7 +14,7 @@
                 </a>
             </div>
             <div class="btn-group" role="group">
-                <a href="/home">
+                <a href="/monthLikes">
                     <button type="button" class="btn btn-default">Timeline</button>
                 </a>
             </div>
@@ -36,10 +36,9 @@
             <h1 align="right">Thats what you liked</h1>
             <h4 align="right">You liked {{totalPage}} pages!</h4>
             <div align="right">
-                <div class="btn-group" role="group">
-                    <a href="/share">
-                    <button type="button" class="btn btn-default">Share</button>
-                    </a>
+                {{!-- share button  --}}
+                <div class="fb-share-button" data-href="http://159.203.93.124:8080/" data-layout="button" data-size="large" data-mobile-iframe="true">
+                    <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8080%2F&amp;src=sdkpreparse">Share</a>
                 </div>
                 <div class="btn-group" role="group">
                     <a href="/logout">
@@ -56,10 +55,6 @@
     </div>
     <a href="/logout"><button>Logout</button></a>
     <a href="/monthLikes"><button>Page I like this month</button></a>
-    {{!-- share button --}}
-    <div class="fb-share-button" data-href="http://159.203.93.124:8080/" data-layout="button" data-size="large" data-mobile-iframe="true">
-        <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8080%2F&amp;src=sdkpreparse">Share</a>
-    </div>
 </div>
 {{/profile}}
 {{!--

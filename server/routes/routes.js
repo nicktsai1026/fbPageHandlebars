@@ -66,12 +66,14 @@ module.exports = function (app, db) {
         })
     })
 
-    app.get('/friends/commonpages/:id', (req, res) => {
+    app.get('/friends/commonpages/:id/:name', (req, res) => {
         var friendId = req.params.id;
+        var friendName = req.params.name;
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, userItem) => {
             var commonObj = {};
             commonObj.profile = userItem;
+            commonObj.name = friendName;
             db.collection('pagedetails').find({}).toArray((err, item) => {
                 var commonArr = [];
                 var counter = 0;

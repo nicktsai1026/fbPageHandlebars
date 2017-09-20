@@ -16,7 +16,6 @@ module.exports = function (app, db) {
     })
 
     app.get('/login', (req, res) => {
-        //hide the header partials here
         res.render('login');
     })
 
