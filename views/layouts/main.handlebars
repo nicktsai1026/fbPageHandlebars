@@ -21,6 +21,7 @@
         crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="/assets/style.css">
+
 </head>
 
 <body class="background">
@@ -31,6 +32,7 @@
 </body>
 
 </html>
+<div id="fb-root"></div>
 
 <script>
     var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=facebook&api_key=wP4Xz8l0YNAWfwqJdDj75AgGcpL168zl&limit=5");
@@ -38,15 +40,15 @@
         console.log("success got data", data);
         $("#titleImg").attr("src", data.data[0].embed_url);
     });
-
+    //favor button
     $(document).ready(function(){
         var id = null;
         $('.unlike').click(function(){
-            if($(this).attr('src')==='../../assets/svg/unlike.svg') {
-                $(this).attr('src','../../assets/svg/like.svg');
+            if($(this).attr('src') === '../../assets/svg/unlike.svg') {
+                $(this).attr('src', '../../assets/svg/like.svg');
             }
             else {
-                $(this).attr('src','../../assets/svg/unlike.svg');
+                $(this).attr('src', '../../assets/svg/unlike.svg');
             }
 
             id = $(this).attr('id');
@@ -62,5 +64,12 @@
             })
         });
     });
-
+    //share button
+    (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.10&appId=109100156427112";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 </script>
