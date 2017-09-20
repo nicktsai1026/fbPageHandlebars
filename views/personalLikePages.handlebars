@@ -4,6 +4,7 @@
 <div>
     {{#selectedCategory}}
     <div class="fansPage col-sm-12">
+        <div class="col-sm-6">
         <a href="{{link}}" target="_blank">
             <div>
                 <img src="{{picture.data.url}}" alt="picture">
@@ -14,6 +15,10 @@
                 <p>About:{{about}}</p>
             </div>
         </a>
+        </div>
+        <div class="col-sm-6">
+            <img src="../../assets/svg/unlike.svg" alt="heart">
+        </div>
     </div>
     {{/selectedCategory}}
 </div>
