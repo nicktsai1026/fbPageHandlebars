@@ -1,3 +1,8 @@
+.all{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif
+}
+
 .showlogin {
     display: flex;
     flex-direction: column;
@@ -5,11 +10,16 @@
 }
 
 .background{
-    background: linear-gradient(75deg, #5B709E, #A0AECB);
+    /* background: linear-gradient(75deg, #5B709E, #A0AECB); */
+    background-image : url("https://i.pinimg.com/originals/e1/7b/89/e17b890694055c03d8cb31cb8f6ead45.jpg")
 }
 
 .profile{
     background: linear-gradient(75deg, #CBCBCB, #FFFFFF);
+}
+
+.header{
+    margin: 20px;
 }
 
 .landing {
@@ -31,6 +41,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.btn{
+    margin: 10px
 }
 
 .progress-bar{

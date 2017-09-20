@@ -1,10 +1,23 @@
 <div>
     <a href="/home"><button>Home</button></a>
 </div>
-<div>
+<div class="container-fluid">
+    <div class="list-group">
     {{#selectedCategory}}
-    <div class="fansPage col-sm-12">
-        <div class="col-sm-6">
+    <a href="{{link}}" target="_blank" class="list-group-item">
+        <img src="{{picture.data.url}}" alt="picture">
+        <span class="list-group-item-heading">{{name}}</span>
+        <span class="list-group-item-text">Likes: {{fan_count}}</span>
+        <span class="list-group-item-text">About:{{about}}</span>
+    </a>
+    {{/selectedCategory}}
+</div>
+</div>
+
+<div>
+    {{!-- {{#selectedCategory}} --}}
+    {{!-- <div class="fansPage col-sm-12">
+        {{!-- <div class="col-sm-6"> --}}
         <a href="{{link}}" target="_blank">
             <div>
                 <img src="{{picture.data.url}}" alt="picture">
@@ -17,8 +30,8 @@
         </a>
         </div>
         <div class="col-sm-6">
-            <img src="../../assets/svg/unlike.svg" alt="heart">
+            {{!-- <img src="../../assets/svg/unlike.svg" alt="heart"> --}}
         </div>
-    </div>
-    {{/selectedCategory}}
+    </div> --}}
+    {{!-- {{/selectedCategory}} --}}
 </div>
