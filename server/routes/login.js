@@ -38,7 +38,7 @@ module.exports = function (app, db) {
             // res.redirect('/auth/facebook/');
             if(err) {
                 res.status(400);
-                res.render('error', {message: err.message});
+                res.render('login', {message: err.message});
             }
         }
     );

@@ -1,0 +1,54 @@
+<div class="col-sm-12">
+    <div class="searchDiv">
+        <h1>Check what you did</h1>
+        <form class="txt" action="/checkMonth" method="get">
+            <div>
+                <h4>Select year and month:</h4>
+                <select class="input-medium" name="year">
+                     {{#each years}}
+                    <option value="{{this}}"> {{this}} </option>
+                     {{/each}}
+                </select>
+                <select class="input-medium" name="month">
+                    <option value="01"> January </option>
+                    <option value="02"> February </option>
+                    <option value="03"> March </option>
+                    <option value="04"> April </option>
+                    <option value="05"> May </option>
+                    <option value="06"> June </option>
+                    <option value="07"> July </option>
+                    <option value="08"> August </option>
+                    <option value="09"> September </option>
+                    <option value="10"> October </option>
+                    <option value="11"> November </option>
+                    <option value="12"> December </option>
+                </select>
+            </div>
+            <div>
+                <input class="sub" type="submit" value="Check">
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <div style="width:80%;" class="bigDiv col-sm-8 col-sm-offset-1">
+        <canvas id="chartjs-0" class="chartjs" width="404" height="202" style="display: block; width: 404px; height: 202px;"></canvas>
+    </div>
+</div>
+
+<script>
+    new Chart(document.getElementById("chartjs-0"),
+        {
+            "type": "line",
+            "data":
+            {
+                "labels": [{{#each years}}'{{this}}',{{/each}}],
+        "datasets": [{
+            "label": "Facebook pages",
+            "data": [{{number}}],
+        "fill": false, "borderColor": "rgb(75, 192, 192)",
+        "lineTension": 0.1 }] 
+        },
+        "options": {} 
+    });
+</script>

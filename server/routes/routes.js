@@ -54,7 +54,7 @@ module.exports = function (app, db) {
                         friendDetailArr.push(item);
                         counter++;
                         if(counter == friendsArr.length) {
-                            friendObj.friendInfo = friendDetailArr;
+                            friendObj.friendInfo = friendDetailArr.sort();
                             res.render('friends', friendObj);
                         }
                     })
@@ -241,11 +241,61 @@ module.exports = function (app, db) {
         })
     })
 
-    app.get('/monthLikes', (req, res) => {
+    app.get('/checkTimeLine', (req, res) => {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId}, (err, item) => {
+            var yearArr = [];
             item.likes.forEach((val) => {
+                var pageDate = new Date(val.created_time);
+                var pageYearOnly = pageDate.getFullYear();
+                yearArr.push(pageYearOnly);
+            })
+            //count date
+            var dateCounts = {}; 
+            yearArr.forEach(function (x) {
+                dateCounts[x] = (dateCounts[x] || 0) + 1;
+            });
+            var showYear = [];
+            var showNumber = [];
+            for (var key in dateCounts) {
+                showYear.push([key].toString());
+                showNumber.push(dateCounts[key]);
+            }
+            var timeLineObj = {};
+            timeLineObj.years = showYear;
+            timeLineObj.number = showNumber;
+            timeLineObj.profile = item;
+            res.render('timeLine', timeLineObj);
+        })
+    })
 
+    app.get('/checkMonth', (req, res) => {
+        var inputSearch = req.query.year+'-'+req.query.month;
+        var userId = req.session.passport.user;
+        var searchArr = [];
+        db.collection('users').findOne({ fbId: userId }, (err, item) => {
+            if (err) return console.log (err)
+            var counter = 0;
+            item.likes.forEach((val) => {
+                var judgeDate = val.created_time.indexOf(inputSearch);
+                if (judgeDate > -1) {
+                    var judgeFavor = item.favor.indexOf(val.id);
+                    if(judgeFavor > -1) {
+                        val.favor = 'like';
+                        searchArr.push(val);
+                    } else {
+                        val.favor = 'unlike';
+                        searchArr.push(val);
+                    }
+                }
+                counter++;
+                if (counter == item.likes.length) {
+                    var targetTimeObj = {};
+                    targetTimeObj.profile = item;
+                    targetTimeObj.pages = searchArr;
+                    targetTimeObj.selected = inputSearch;
+                    res.render('targetTime', targetTimeObj);
+                }
             })
         })
     })
