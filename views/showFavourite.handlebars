@@ -1,17 +1,25 @@
-<div>
-    <h1>{{empty}}</h1>
+<div class="container-fluid">
+    <h3 align='center'>{{header}}</h3>
 </div>
-
-{{#showFavouritePages}}
-<div class="list-group-item">
-    <span class="pageItem">
-        <span class="list-group-item-text">{{fan_count}} Likes</span>
-        <a class="finger"><img id="{{id}}" class="favorControl" src="../../assets/svg/{{favor}}.svg" width="40" height="40" alt="heart"></a>
-    </span>
-    <a href="{{link}}" target="_blank">
-        <img class="pageImg" src="{{picture.data.url}}" alt="picture">
-        <h3 class="list-group-item-heading">{{name}}</h3>
-        <span class="list-group-item-text">About:{{about}}</span>
-    </a>
+<div class="container-fluid">
+    <div class="list-group">
+        <div class="list-group-item ">
+            <a href="/home">
+                <span class="glyphicon glyphicon-chevron-left"></span>Back to category
+            </a>
+        </div>
+        {{#showFavouritePages}}
+        <div class="list-group-item">
+            <span class="pageItem">
+                <span class="list-group-item-text">{{fan_count}} Likes</span>
+                <a class="finger"><img id="{{id}}" class="favorControl" src="../../assets/svg/{{favor}}.svg" width="40" height="40" alt="heart"></a>
+            </span>
+            <a href="{{link}}" target="_blank">
+                <img class="pageImg" src="{{picture.data.url}}" alt="picture">
+                <h3 class="list-group-item-heading">{{name}}</h3>
+                <span class="list-group-item-text">About:{{about}}</span>
+            </a>
+        </div>
+        {{/showFavouritePages}}
+    </div>
 </div>
-{{/showFavouritePages}}

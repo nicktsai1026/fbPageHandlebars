@@ -1,14 +1,17 @@
-
+<div class="container-fluid">
+    <h3 align='center'>Category: {{categoryName}}</h3>
+</div>
 <div class="container-fluid">
     <div class="list-group">
         <div class="list-group-item">
             <a href="/home"><span class="glyphicon glyphicon-chevron-left"></span>Back to category
             </a>
+            <span class="pageItem">Click the heart below to add page to favourite</span>
         </div>
         {{#selectedCategory}}
         <div class="list-group-item">
             <span class="pageItem">
-                <span class="list-group-item-text">{{fan_count}} Likes</span>
+                <span class="list-group-item-text badge">{{fan_count}} Likes</span>
                 <a class="finger"><img id="{{id}}" class="favorControl" src="../../assets/svg/{{favor}}.svg" width="40" height="40" alt="heart"></a>
             </span>
             <a href="{{link}}" target="_blank">

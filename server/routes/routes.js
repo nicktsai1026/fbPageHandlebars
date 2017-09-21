@@ -70,13 +70,21 @@ module.exports = function (app, db) {
         var friendId = req.params.id;
         var friendName = req.params.name;
         var userId = req.session.passport.user;
-        db.collection('users').findOne({ fbId: userId }, (err, userItem) => {
-            var commonObj = {};
-            commonObj.profile = userItem;
-            commonObj.name = friendName;
-            db.collection('pagedetails').find({}).toArray((err, item) => {
+        var promises = []
+        
+        promises.push(db.collection('users').findOne({ fbId: userId }))
+        promises.push(db.collection('pagedetails').find({}).toArray())
+
+        Promise.all(promises)
+            .then((list)=>{
+                var commonObj = {};
+                commonObj.profile = list[0]
+                commonObj.name = friendName
+
                 var commonArr = [];
                 var counter = 0;
+
+                var item = list[1]
                 item.forEach((val) => {
                     var checkArr = val.fbUserId;
                     if (checkArr.indexOf(userId) > -1 && checkArr.indexOf(friendId) > -1) {
@@ -87,8 +95,27 @@ module.exports = function (app, db) {
                 commonObj.commonPages = commonArr;
                 commonObj.pageCounter = counter;
                 res.render('common', commonObj);
+
             })
-        }) 
+        // , (err, userItem) => {
+        //     var commonObj = {};
+        //     commonObj.profile = userItem;
+        //     commonObj.name = friendName;
+        //     db.collection('pagedetails').find({}).toArray((err, item) => {
+        //         var commonArr = [];
+        //         var counter = 0;
+        //         item.forEach((val) => {
+        //             var checkArr = val.fbUserId;
+        //             if (checkArr.indexOf(userId) > -1 && checkArr.indexOf(friendId) > -1) {
+        //                 commonArr.push(val);
+        //                 counter++;
+        //             }
+        //         })
+        //         commonObj.commonPages = commonArr;
+        //         commonObj.pageCounter = counter;
+        //         res.render('common', commonObj);
+            // })
+        // }) 
     })
 
     app.get('/category/:item', (req, res) => {
@@ -115,6 +142,7 @@ module.exports = function (app, db) {
                 if(counter == item.likes.length) {
                     var showCategoriesObj = {};
                     showCategoriesObj.profile = item;
+                    showCategoriesObj.categoryName = categoryName;
                     showCategoriesObj.selectedCategory = showCategoriesArr;
                     res.render('personalLikePages', showCategoriesObj);
                 }
@@ -147,6 +175,7 @@ module.exports = function (app, db) {
                 if (counter == item.likes.length) {
                     var showCategoriesObj = {};
                     showCategoriesObj.profile = item;
+                    showCategoriesObj.categoryName = categoryName;
                     showCategoriesObj.selectedCategory = showCategoriesArr;
                     res.render('personalLikePages', showCategoriesObj);
                 }
@@ -184,27 +213,31 @@ module.exports = function (app, db) {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
             if (err) return console.log(err)
-            if (item.favor == null) {
+            if (item.favor == null || item.favor.length == 0) {
                 var nullObj = {};
-                nullObj.empty = `You don't have any favourite pages. Let's add something you want!`
+                nullObj.profile = item;
+                nullObj.header = `You don't have any favourite pages. Go add something now!`
                 res.render('showFavourite', nullObj);
             }
-            var showFavouriteObj = {};
-            showFavouriteObj.profile = item;
-            var favouriteArr = [];
-            var counter = 0;
-            item.favor.forEach((val) => {
-                db.collection('pagedetails').findOne({ id: val }, (err, pageDetailItem) => {
-                    if (err) return console.log(err)
-                    pageDetailItem.favor = 'like';
-                    favouriteArr.push(pageDetailItem);
-                    counter++;
-                    if(counter == item.favor.length) {
-                        showFavouriteObj.showFavouritePages = favouriteArr;
-                        res.render('showFavourite', showFavouriteObj);
-                    }
+            else{
+                var showFavouriteObj = {};
+                showFavouriteObj.profile = item;
+                var favouriteArr = [];
+                var counter = 0;
+                item.favor.forEach((val) => {
+                    db.collection('pagedetails').findOne({ id: val }, (err, pageDetailItem) => {
+                        if (err) return console.log(err)
+                        pageDetailItem.favor = 'like';
+                        favouriteArr.push(pageDetailItem);
+                        counter++;
+                        if(counter == item.favor.length) {
+                            showFavouriteObj.showFavouritePages = favouriteArr;
+                            showFavouriteObj.header = `Favourite Pages`
+                            res.render('showFavourite', showFavouriteObj);
+                        }
+                    })
                 })
-            })
+            }
         })
     })
 

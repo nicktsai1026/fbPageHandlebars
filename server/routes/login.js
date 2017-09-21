@@ -2,31 +2,46 @@ const passport = require('passport');
 const getLikePages = require('../likePages');
 
 module.exports = function (app, db) {
-    
+
     function isLoggedIn(req, res, next) {
-        console.log(req._passport.instance._userProperty)
         if (req.isAuthenticated()) {
+            console.log('Already logged in!')
             return next();
         }
         res.redirect('/login');
     }
+
+    module.exports.isLoggedIn = isLoggedIn
 
     app.get('/', isLoggedIn, (req, res) => {
         res.redirect('/home');
     })
 
     app.get('/login', (req, res) => {
+        //error here
         res.render('login');
     })
+
+    app.get('/auth/facebook',
+        passport.authenticate('facebook'));
 
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', { failureRedirect: '/login' }),
         function (req, res) {
+            // res.redirect('/home');
             res.redirect('/setLikePages');
-        });
-
-    app.get('/auth/facebook',
-        passport.authenticate('facebook'));
+        }, 
+        // on error; likely to be something FacebookTokenError token invalid or already used token,
+        // these errors occur when the user logs in twice with the same token
+        function(err,req,res,next) {
+            // You could put your own behavior in here, fx: you could force auth again...
+            // res.redirect('/auth/facebook/');
+            if(err) {
+                res.status(400);
+                res.render('error', {message: err.message});
+            }
+        }
+    );
 
     app.get('/logout', (req, res) => {
         req.logout();
@@ -70,13 +85,14 @@ module.exports = function (app, db) {
                     pageObj.likes = details[0];
                     db.collection('users').updateOne({ fbId: userId }, { $set: pageObj }, (err, item) => {
                         if (err) return console.log(err)
-                        res.redirect('/setPageDetails');
+                        // res.redirect('/setPageDetails');
                     })
                 })
                 .catch((err) => {
                     console.log(err);
                 })
         })
+        res.redirect('/setPageDetails');
     })
 
     app.get('/setPageDetails', (req, res) => {

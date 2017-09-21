@@ -11,7 +11,7 @@ module.exports = (app, db) => {
         callbackURL: 'http://localhost:8080/auth/facebook/callback',
         profileFields: ['id', 'displayName', 'photos', 'email'],
         enableProof: true
-    },
+    }, 
         function (accessToken, refreshToken, profile, cb) {
             var fbInfoObj = {
                 access_token: accessToken,
@@ -19,23 +19,22 @@ module.exports = (app, db) => {
                 fbName: profile.displayName,
                 fbPhoto: profile.photos[0].value
             }
+            // console.log(fbInfoObj)
             db.collection('users').findOne({ fbId: profile.id }, (err, item) => {
                 if (item == null) {
                     db.collection('users').insert(fbInfoObj, (err, item) => {
                         if (err) {
-                            console.log('Error in passport')
-                            console.log(err)
+                            // console.log(err)
+                            return cb(err, null)
                         } else {
-                            console.log('fbInfoObj')
+                            // console.log('fbInfoObj')
                             return cb(null, fbInfoObj);
                         }
                     })
                 } else {
                     var updatePhoto = { fbPhoto: profile.photos[0].value };
                     db.collection('users').updateOne({ fbId: profile.id }, { $set: updatePhoto }, (err, item) => {
-                        if (err) return 
-                            console.log('Error in update photo')
-                            console.log(err)
+                        if (err) return cb(err, null)
                         return cb(null, fbInfoObj);
                     })
                 }

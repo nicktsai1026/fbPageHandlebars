@@ -1,15 +1,17 @@
 <div class="container-fluid">
+    <h3 align='center'>You have {{pageCounter}} pages in common  <br>  with {{name}}!</h3>
+</div>
+<div class="container-fluid">
     <div class="list-group">
         <div class="list-group-item ">
             <a href="/checkFriends">
                 <span class="glyphicon glyphicon-chevron-left"></span>Back to friends
-                <span class="pageItem">You have {{pageCounter}} in common with {{name}}</span>
             </a>
         </div>
     {{#commonPages}}
         <div class="list-group-item">
             <span class="pageItem">
-                <span class="list-group-item-text">{{fan_count}} Likes</span>
+                <span class="list-group-item-text badge">{{fan_count}} Likes</span>
             </span>
             <a href="{{link}}" target="_blank">
                 <img class="pageImg" src="{{picture.data.url}}" alt="picture">

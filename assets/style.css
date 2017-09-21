@@ -4,7 +4,7 @@
 }
 
 .background{
-    background-image: linear-gradient(45deg, #2d4b89 0%, #3c5995 99%, #516fae 100%);
+    background-image: linear-gradient(to right, #2b5876 0%, #4e4376 100%);
 }
 
 .login{
@@ -18,42 +18,26 @@
     margin: 20px;
 }
 
+.navbar{
+    background-color: #EDE4DD;
+    margin-bottom: 0px;
+    border: 0px
+}
+
+.navbar-nav{
+    background-color: #EDE4DD;
+}
+
+.navbar-header{
+    background-color: #EDE4DD;
+}
+
 .header{
-    margin: 20px;
-}
-
-.profile{
-    /* display:inline-block; */
-    padding-left: 10px
-}
-
-.profile-div{
-    margin-top: 10px;
-    margin-left: 10px
-}
-
-/* .profile-pic{
-    margin: 10px
-} */
-
-.title {
-    font-size: 65px; 
-}
-
-.subHead {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin-top: 70px;
 }
 
 .btn{
     margin: 10px
-}
-
-.progress-bar{
-    /* background-image: linear-gradient(120deg, #4d651d 0%, #4d651d 100%); */
-    background-image: linear-gradient(120deg, #dfe3ee 0%, #f7f7f7	 100%);
-    background-color: rgb(255,255,255, 0.1)
 }
 
 .category{
@@ -76,4 +60,12 @@
 
 .finger:hover {
     cursor: pointer;
+}
+
+.seperator{
+    background-color: #F6F5AE;
+}
+
+.list-group-item{
+    background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
 }
