@@ -43,7 +43,7 @@
     //favor button
     $(document).ready(function(){
         var id = null;
-        $('.unlike').click(function(){
+        $('.favorControl').click(function(){
             if($(this).attr('src') === '../../assets/svg/unlike.svg') {
                 $(this).attr('src', '../../assets/svg/like.svg');
             }
@@ -56,7 +56,7 @@
             $.ajax({
                 type:"POST",
                 data: {addFavorId:id},
-                url: 'http://localhost:8080/addFavorite',
+                url: 'http://localhost:8080/addFavourite',
                 success: function (data) {
                     console.log('success');
                     console.log(JSON.stringify(data));

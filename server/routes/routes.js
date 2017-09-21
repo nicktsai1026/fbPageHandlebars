@@ -154,7 +154,7 @@ module.exports = function (app, db) {
         })
     })
 
-    app.post('/addFavorite', (req, res) => {
+    app.post('/addFavourite', (req, res) => {
         var favorId = req.body.addFavorId;
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
@@ -172,11 +172,39 @@ module.exports = function (app, db) {
                     })
                 } else {
                     favorArr.push(favorId);
-                    db.collection('users').updateOne({ fbId: userId }, { $set: { favor: favorArr } }, (err, item) => {
+                    db.collection('users').updateOne({ fbId: userId }, { $set: { favor: favorArr }}, (err, item) => {
                         if (err) return console.log(err);
                     })
                 }
             }
+        })
+    })
+
+    app.get('/showFavourite', (req, res) => {
+        var userId = req.session.passport.user;
+        db.collection('users').findOne({ fbId: userId }, (err, item) => {
+            if (err) return console.log(err)
+            if (item.favor == null) {
+                var nullObj = {};
+                nullObj.empty = `You don't have any favourite pages. Let's add something you want!`
+                res.render('showFavourite', nullObj);
+            }
+            var showFavouriteObj = {};
+            showFavouriteObj.profile = item;
+            var favouriteArr = [];
+            var counter = 0;
+            item.favor.forEach((val) => {
+                db.collection('pagedetails').findOne({ id: val }, (err, pageDetailItem) => {
+                    if (err) return console.log(err)
+                    pageDetailItem.favor = 'like';
+                    favouriteArr.push(pageDetailItem);
+                    counter++;
+                    if(counter == item.favor.length) {
+                        showFavouriteObj.showFavouritePages = favouriteArr;
+                        res.render('showFavourite', showFavouriteObj);
+                    }
+                })
+            })
         })
     })
 
