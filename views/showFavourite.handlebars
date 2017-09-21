@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <h3 align='center'>{{header}}</h3>
+    <h3 align='center'>{{counting}} {{header}}</h3>
 </div>
 <div class="container-fluid">
     <div class="list-group">
@@ -18,6 +18,7 @@
                 <img class="pageImg" src="{{picture.data.url}}" alt="picture">
                 <h3 class="list-group-item-heading">{{name}}</h3>
                 <span class="list-group-item-text">About:{{about}}</span>
+                <p class="list-group-item-text likeDate">Liked date:{{created_time}}</p>
             </a>
         </div>
         {{/showFavouritePages}}

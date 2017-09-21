@@ -1,4 +1,8 @@
 <div class="container-fluid">
+    <h3 align='center'>Check date: {{selected}}</h3>
+    <h3 align='center'>{{empty}}</h3>
+</div>
+<div class="container-fluid">
     <div class="list-group">
         <div class="list-group-item">
             <a href="/checkTimeLine"><span class="glyphicon glyphicon-chevron-left"></span>Back to timeline
@@ -14,7 +18,7 @@
                 <img class="pageImg" src="{{picture.data.url}}" alt="picture">
                 <h3 class="list-group-item-heading">{{name}}</h3>
                 <span class="list-group-item-text">About:{{about}}</span>
-                <span class="list-group-item-text">Time:{{created_time}}</span>
+                <p class="list-group-item-text likeDate">Liked date:{{created_time}}</p>
             </a>
         </div>
         {{/pages}}

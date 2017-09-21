@@ -274,8 +274,11 @@ module.exports = function (app, db) {
                 if (counter == item.likes.length) {
                     var targetTimeObj = {};
                     targetTimeObj.profile = item;
-                    targetTimeObj.pages = searchArr;
                     targetTimeObj.selected = inputSearch;
+                    targetTimeObj.pages = searchArr;
+                    if (searchArr.length == 0) {
+                        targetTimeObj.empty = `You didn't like any pages.`
+                    }
                     res.render('targetTime', targetTimeObj);
                 }
             })
