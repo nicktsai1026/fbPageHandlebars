@@ -76,4 +76,16 @@ select {
 
 .sub {
     background-color:black;
+    margin: 5px;
+}
+
+.searchDiv {
+    text-align: center;
+}
+
+.title {
+    font-family: 'Poppins', sans-serif;
+}
+.likeDate {
+    text-align: right;
 }
