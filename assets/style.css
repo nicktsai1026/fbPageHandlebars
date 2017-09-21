@@ -24,12 +24,13 @@
     border: 0px
 }
 
-.navbar-nav{
+.navbar-nav, .navbar-header{
     background-color: #EDE4DD;
 }
 
-.navbar-header{
-    background-color: #EDE4DD;
+.profile-pic {
+    margin-top: 5px;
+    border-radius: 50%;
 }
 
 .header{
