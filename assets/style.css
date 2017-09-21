@@ -77,3 +77,11 @@
 .finger:hover {
     cursor: pointer;
 }
+
+select {
+    background-color:black;
+}
+
+.sub {
+    background-color:black;
+}
