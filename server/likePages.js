@@ -29,6 +29,18 @@ function pageDetails (path) {
                         console.log('Gets into data and its undefined')
                         var pageIdArr = [];
                         data.forEach((val) => {
+                            var pageDate = new Date(val.created_time);
+                            var pageYearOnly = (pageDate.getFullYear()).toString();
+                            var pageMonthOnly = (pageDate.getMonth() + 1).toString();
+                            if (pageMonthOnly.length < 2) {
+                                pageMonthOnly = '0' + pageMonthOnly;
+                            }
+                            var pageDateOnly = (pageDate.getDate()).toString();
+                            if (pageDateOnly.length < 2) {
+                                pageDateOnly = '0' + pageDateOnly;
+                            }
+                            var newDateWithoutTime = `${pageYearOnly}-${pageMonthOnly}-${pageDateOnly}`;
+                            val.created_time = newDateWithoutTime;
                             pageIdArr.push(val.id);
                         })
                         var doubleArr = [];
