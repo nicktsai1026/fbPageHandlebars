@@ -40,6 +40,9 @@
         </div> --}}
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li>
+            <img class="profile-pic" src="{{fbPhoto}}" alt="Smiley face" height="40" width="40">
+        </li>
         <li><a href="#">Welcome {{fbName}}!</a></li>
         <a href="logout">
             <button type="submit" class="btn btn-default">Logout</button>
@@ -53,12 +56,18 @@
 <div class="header clearfix container-fluid"> 
     <div class="column">
         {{#profile}}
-            <h1 align="center">Hi {{fbName}}!</h1>
-            <h4 align="center">You liked {{totalPage}} pages!</h4>
-            <div align="center">
-                {{!-- share button  --}}
-                <iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2F159.203.93.124%3A8080%2F&layout=button&size=large&mobile_iframe=true&appId=109100156427112&width=73&height=28" width="73" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-                <h4>Share this to your friends!</h4>
+            <div align="left" class="NameNlikes col-sm-4">
+                <h1>Hi {{fbName}}!</h1>
+                <h4>You liked {{totalPage}} pages!</h4>
+            </div>
+            <div class="col-sm-8">
+                <div align="right" class="shareMsg">
+                    <h4>Share this to your friends!</h4>
+                    <br>
+                </div>
+                <div align="right" style="margin-right: 20px;padding-right:20px" class="shareButton">
+                    <iframe align='center' src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2F159.203.93.124%3A8080%2F&layout=button&size=large&mobile_iframe=true&appId=109100156427112&width=73&height=28" width="73" height="28" style="border:none;transform:scale(1.5);overflow:hidden;" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                </div>
             </div>
         {{/profile}}
     </div>

@@ -70,8 +70,8 @@ module.exports = function (app, db) {
         var friendId = req.params.id;
         var friendName = req.params.name;
         var userId = req.session.passport.user;
-        var promises = []
         
+        var promises = []
         promises.push(db.collection('users').findOne({ fbId: userId }))
         promises.push(db.collection('pagedetails').find({}).toArray())
 
@@ -97,25 +97,6 @@ module.exports = function (app, db) {
                 res.render('common', commonObj);
 
             })
-        // , (err, userItem) => {
-        //     var commonObj = {};
-        //     commonObj.profile = userItem;
-        //     commonObj.name = friendName;
-        //     db.collection('pagedetails').find({}).toArray((err, item) => {
-        //         var commonArr = [];
-        //         var counter = 0;
-        //         item.forEach((val) => {
-        //             var checkArr = val.fbUserId;
-        //             if (checkArr.indexOf(userId) > -1 && checkArr.indexOf(friendId) > -1) {
-        //                 commonArr.push(val);
-        //                 counter++;
-        //             }
-        //         })
-        //         commonObj.commonPages = commonArr;
-        //         commonObj.pageCounter = counter;
-        //         res.render('common', commonObj);
-            // })
-        // }) 
     })
 
     app.get('/category/:item', (req, res) => {
