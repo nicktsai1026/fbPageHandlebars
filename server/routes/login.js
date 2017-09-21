@@ -22,7 +22,8 @@ module.exports = function (app, db) {
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', { failureRedirect: '/login' }),
         function (req, res) {
-            res.redirect('/setLikePages');
+            res.redirect('/home');
+            // res.redirect('/setLikePages');
         });
 
     app.get('/auth/facebook',

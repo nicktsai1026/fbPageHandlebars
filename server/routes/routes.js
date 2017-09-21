@@ -186,35 +186,59 @@ module.exports = function (app, db) {
             if (err) return console.log(err)
             if (item.favor == null) {
                 var nullObj = {};
+                nullObj.profile = item;
                 nullObj.empty = `You don't have any favourite pages. Let's add something you want!`
                 res.render('showFavourite', nullObj);
-            }
-            var showFavouriteObj = {};
-            showFavouriteObj.profile = item;
-            var favouriteArr = [];
-            var counter = 0;
-            item.favor.forEach((val) => {
-                db.collection('pagedetails').findOne({ id: val }, (err, pageDetailItem) => {
-                    if (err) return console.log(err)
-                    pageDetailItem.favor = 'like';
-                    favouriteArr.push(pageDetailItem);
-                    counter++;
-                    if(counter == item.favor.length) {
-                        showFavouriteObj.showFavouritePages = favouriteArr;
-                        res.render('showFavourite', showFavouriteObj);
-                    }
+            } 
+            else {
+                var showFavouriteObj = {};
+                showFavouriteObj.profile = item;
+                var favouriteArr = [];
+                var counter = 0;
+                item.favor.forEach((val) => {
+                    db.collection('pagedetails').findOne({ id: val }, (err, pageDetailItem) => {
+                        if (err) return console.log(err)
+                        pageDetailItem.favor = 'like';
+                        favouriteArr.push(pageDetailItem);
+                        counter++;
+                        if(counter == item.favor.length) {
+                            showFavouriteObj.showFavouritePages = favouriteArr;
+                            res.render('showFavourite', showFavouriteObj);
+                        }
+                    })
                 })
-            })
+            }
         })
     })
 
-    app.get('/monthLikes', (req, res) => {
+    app.get('/checkTimeLine', (req, res) => {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId}, (err, item) => {
+            var yearArr = [];
             item.likes.forEach((val) => {
-
+                var pageDate = new Date(val.created_time);
+                var pageYearOnly = pageDate.getFullYear();
+                yearArr.push(pageYearOnly);
             })
+            //count date
+            var dateCounts = {}; 
+            yearArr.forEach(function (x) {
+                dateCounts[x] = (dateCounts[x] || 0) + 1;
+            });
+            var showYear = [];
+            var showNumber = [];
+            for (var key in dateCounts) {
+                showYear.push([key].toString());
+                showNumber.push(dateCounts[key]);
+            }
+            var timeLineObj = {};
+            timeLineObj.years = showYear;
+            timeLineObj.number = showNumber;
+            timeLineObj.profile = item;
+            console.log(timeLineObj);
+            res.render('timeLine', timeLineObj);
         })
     })
+
 
 }
