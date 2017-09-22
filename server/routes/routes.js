@@ -79,7 +79,7 @@ module.exports = function (app, db) {
         var friendId = req.params.id;
         var friendName = req.params.name;
         var userId = req.session.passport.user;
-        
+
         var promises = []
         promises.push(db.collection('users').findOne({ fbId: userId }))
         promises.push(db.collection('pagedetails').find({}).toArray())
@@ -223,7 +223,6 @@ module.exports = function (app, db) {
                         if(counter == item.favor.length) {
                             showFavouriteObj.showFavouritePages = favouriteArr;
                             showFavouriteObj.header = `Favourite Pages`
-                            showFavouriteObj.counting = counter;
                             res.render('showFavourite', showFavouriteObj);
                         }
                     })

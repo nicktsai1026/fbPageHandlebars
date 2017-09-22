@@ -1,0 +1,123 @@
+.all{
+    color: black;
+    font-family: 'Open Sans', sans-serif;    
+}
+
+.title {
+    font-family: 'Open Sans', sans-serif;    
+}
+
+.background{
+    /* background-image: linear-gradient(to right, #2b5876 0%, #4e4376 100%); */
+    background-color: #e9eaed
+}
+
+.login{
+    background-color: rgba(72, 72, 72, 0.5);
+}
+
+.showlogin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+}
+
+.navbar{
+    /* background-color: #EDE4DD; */
+    background-color: #3b5998;
+    margin-bottom: 0px;
+    border: 0px
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white 
+}
+
+.navbar-nav, .navbar-header{
+    /* background-color: #EDE4DD; */
+    background-color: #3b5998;
+}
+
+.navbar-default .navbar-brand{
+    color: #fff
+}
+
+.navbar-default .navbar-brand:hover{
+    color: #fff;
+    background-color: #324e85;
+}
+
+.navbar-default .navbar-nav>li>a{
+    color: #fff
+}
+
+.navbar-default .navbar-nav>li>a:hover{
+    color: #fff;
+    background-color: #324e85;
+}
+
+.profile-pic {
+    margin-top: 8px;
+    border-radius: 50%;
+    margin-left: 15px; 
+}
+
+.header{
+    margin-top: 70px;
+}
+
+.btn{
+    margin: 10px
+}
+
+.category{
+    text-align: center;
+}
+
+.thumbnail {
+    height: 80px;
+    background-image: linear-gradient(135deg, #f7f7f7 0%, #dfe3ee 100%);
+}
+
+.pageItem {
+    float: right;
+    color: #6697C1;
+}
+
+.pageImg {
+    margin-bottom: 5px;
+}
+
+.finger:hover {
+    cursor: pointer;
+}
+
+.seperator{
+    background-color: #F6F5AE;
+}
+
+.list-group-item{
+    /* background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%); */
+    background-color: #ffffff;
+
+}
+select {
+    background-color:white;
+}
+
+.sub {
+    background-color:#4267b2;
+    border-radius: 2px;
+    border-color: #4267b2;  
+    color: white;
+    margin: 10px;
+}
+
+.searchDiv {
+    text-align: center;
+}
+
+.likeDate {
+    text-align: right;
+}
