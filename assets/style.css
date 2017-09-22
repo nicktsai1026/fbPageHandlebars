@@ -8,6 +8,11 @@
 .title {
     font-family: 'Open Sans', sans-serif;    
 }
+
+.login-title{
+    font-family: 'Open Sans', sans-serif;    
+    font-size: 65px;
+}
     
 .background{
     /* background-image: linear-gradient(to right, #2b5876 0%, #4e4376 100%); */
@@ -26,19 +31,19 @@
     margin: 20px;
 }
     
-    .navbar{
+.navbar{
     background-color: #EDE4DD;
     /* background-color: #EDE4DD; */
     background-color: #3b5998;
-        margin-bottom: 0px;
-        border: 0px
-    }
+    margin-bottom: 0px;
+    border: 0px
+}
     
 .navbar-default .navbar-toggle .icon-bar {
     background-color: white 
 }
 
-    .navbar-nav, .navbar-header{
+.navbar-nav, .navbar-header{
     /* background-color: #EDE4DD; */
     /* background-color: #EDE4DD; */
     background-color: #3b5998;
