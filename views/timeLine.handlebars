@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="col-sm-12">
         <div class="searchDiv">
-            <h1>All pages you liked since you joined facebook</h1>
+            <h3>All pages you liked since you joined facebook</h3>
             
         </div>
     </div>
@@ -48,12 +48,15 @@
             "data":
             {
                 "labels": [{{#each years}}'{{this}}',{{/each}}],
-        "datasets": [{
-            "label": "Facebook pages",
-            "data": [{{number}}],
-        "fill": false, "borderColor": "rgb(75, 192, 192)",
-        "lineTension": 0.1 }] 
-        },
+                "datasets": [{
+                    "label": "No. of Facebook Pages Liked By Year",
+                    "data": [{{number}}],
+                    "fill": false, 
+                    "backgroundColor":"rgb(75, 192, 192)", 
+                    "borderColor": "rgb(75, 192, 192)",
+                    "lineTension": 0.1 
+                }] 
+            },
         "options": {} 
     });
 </script>
