@@ -1,13 +1,52 @@
 <div class="container landing">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+            <a class="navbar-brand title" href="#">That's What We Liked</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Get Access token Here To Try</a></li>
+                </ul>
+            </div>
+        </div><!-- /.container-fluid -->
+    </nav>
     <div class="row">
-        <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 text-center login
-        ">
+        <div class="col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 text-center login">
 
             <h1 class="title">Thats what we liked</h1>
             <h2 class="subtitle">Find out which friends liked the same page like you did!</h2>
-            {{!-- <iframe style='' src="https://giphy.com/embed/14cilFdQzr8hG0" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-            <p><a href="https://giphy.com/gifs/reaction-like-facebook-14cilFdQzr8hG0">via GIPHY</a></p> --}}
-            {{!-- <img id='titleImg' src="https://giphy.com/gifs/reaction-like-facebook-14cilFdQzr8hG0" alt="HTML5 Icon" style="width:128px;height:128px;"> --}}
+            
+            <div class="slider-pro" id="my-slider">
+                <div class="sp-slides">
+                    <!-- Slide 1 -->
+                    <div class="sp-slide">
+                        <img class="sp-image" src="assets/img/category.png"/>
+                    </div>
+                    
+                    <!-- Slide 2 -->
+                    <div class="sp-slide">
+                        <img class="sp-image" src="assets/img/chart.png"/>
+                    </div>
+                    
+                    <!-- Slide 3 -->
+                    <div class="sp-slide">
+                        <img class="sp-image" src="assets/img/details.png"/>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="sp-slide">
+                        <img class="sp-image" src="assets/img/friends.png"/>
+                    </div>
+                </div>
+            </div>
 
             <div class="showlogin">
                 <h1> Login Facebook to see the magic happens! </h1>
