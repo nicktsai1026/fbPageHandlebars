@@ -1,10 +1,15 @@
 .all{
-    color: white;
-    font-family: Arial, Helvetica, sans-serif
+    color: black;
+    font-family: 'Open Sans', sans-serif;    
+}
+
+.title {
+    font-family: 'Open Sans', sans-serif;    
 }
 
 .background{
-    background-image: linear-gradient(to right, #2b5876 0%, #4e4376 100%);
+    /* background-image: linear-gradient(to right, #2b5876 0%, #4e4376 100%); */
+    background-color: #e9eaed
 }
 
 .login{
@@ -19,18 +24,43 @@
 }
 
 .navbar{
-    background-color: #EDE4DD;
+    /* background-color: #EDE4DD; */
+    background-color: #3b5998;
     margin-bottom: 0px;
     border: 0px
 }
 
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white 
+}
+
 .navbar-nav, .navbar-header{
-    background-color: #EDE4DD;
+    /* background-color: #EDE4DD; */
+    background-color: #3b5998;
+}
+
+.navbar-default .navbar-brand{
+    color: #fff
+}
+
+.navbar-default .navbar-brand:hover{
+    color: #fff;
+    background-color: #324e85;
+}
+
+.navbar-default .navbar-nav>li>a{
+    color: #fff
+}
+
+.navbar-default .navbar-nav>li>a:hover{
+    color: #fff;
+    background-color: #324e85;
 }
 
 .profile-pic {
-    margin-top: 5px;
+    margin-top: 8px;
     border-radius: 50%;
+    margin-left: 15px; 
 }
 
 .header{
@@ -68,25 +98,26 @@
 }
 
 .list-group-item{
-    background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+    /* background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%); */
+    background-color: #ffffff;
 
 }
 select {
-    background-color:black;
+    background-color:white;
 }
 
 .sub {
-    background-color:black;
-    margin: 5px;
+    background-color:#4267b2;
+    border-radius: 2px;
+    border-color: #4267b2;  
+    color: white;
+    margin: 10px;
 }
 
 .searchDiv {
     text-align: center;
 }
 
-.title {
-    font-family: 'Poppins', sans-serif;
-}
 .likeDate {
     text-align: right;
 }

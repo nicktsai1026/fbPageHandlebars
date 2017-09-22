@@ -214,7 +214,6 @@ module.exports = function (app, db) {
                         if(counter == item.favor.length) {
                             showFavouriteObj.showFavouritePages = favouriteArr;
                             showFavouriteObj.header = `Favourite Pages`
-                            console.log(showFavouriteObj)
                             res.render('showFavourite', showFavouriteObj);
                         }
                     })
