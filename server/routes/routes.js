@@ -15,7 +15,7 @@ module.exports = function (app, db) {
             categoryArr.forEach(function (x) {
                 categoryCounts[x] = (categoryCounts[x] || 0) + 1;
             });
-
+            //make category and pages to array and put in to another array
             var allCounts = []
             Object.keys(categoryCounts).forEach(function(key) {
                 allCounts.push([key,categoryCounts[key]])
@@ -37,6 +37,7 @@ module.exports = function (app, db) {
 
     app.get('/checkFriends', (req, res) => {
         var userId = req.session.passport.user;
+        //get friend info save to database
         db.collection('users').findOne({ fbId: userId}, (err, item) => {
             var friendObj = {};
             var personalInfoArr = [];

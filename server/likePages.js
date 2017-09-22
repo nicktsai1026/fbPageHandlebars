@@ -3,7 +3,6 @@ const axios = require('axios');
 function pageDetails (path) {
     return new Promise((resolve, reject) => {
         var pageData = [];
-        var count = 1;
         getDetail(path) 
         function getDetail (path) {
             axios.get(path)
@@ -20,13 +19,19 @@ function pageDetails (path) {
                         console.log('done');
                         return pageData
                     } else {
-                        // console.log(nextPage);
-                        getDetail(nextPage)
+                        var judge = nextPage.indexOf('limit=25');
+                        if (judge > -1) {
+                            var newNextPage = nextPage.replace('limit=25', 'limit=100');
+                            console.log(newNextPage);
+                            getDetail(newNextPage);
+                        } else {
+                            console.log(nextPage);
+                            getDetail(nextPage)
+                        }
                     }
                 })
                 .then((data) => {   
                     if (data != undefined) {
-                        console.log('Gets into data and its undefined')
                         var pageIdArr = [];
                         data.forEach((val) => {
                             var pageDate = new Date(val.created_time);
