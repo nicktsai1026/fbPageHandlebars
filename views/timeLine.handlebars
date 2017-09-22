@@ -1,13 +1,23 @@
-<div class="col-sm-12">
-    <div class="searchDiv">
-        <h1>Check what you did</h1>
+<div class="container-fluid">
+    <div class="col-sm-12">
+        <div class="searchDiv">
+            <h1>All pages you liked since you joined facebook</h1>
+            
+        </div>
+    </div>
+    <div class="chart">
+        <div style="width:80%;" class="bigDiv col-sm-8 col-sm-offset-1">
+            <canvas id="chartjs-0" class="chartjs" width="404" height="202" style="display: block; width: 404px; height: 202px;"></canvas>
+        </div>
+    </div>
+    <div class="qPageByTime col-sm-12">
         <form class="txt" action="/checkMonth" method="get">
             <div>
                 <h4>Select year and month:</h4>
                 <select class="input-medium" name="year">
-                     {{#each years}}
+                        {{#each years}}
                     <option value="{{this}}"> {{this}} </option>
-                     {{/each}}
+                        {{/each}}
                 </select>
                 <select class="input-medium" name="month">
                     <option value="01"> January </option>
@@ -28,11 +38,6 @@
                 <input class="sub" type="submit" value="Check">
             </div>
         </form>
-    </div>
-</div>
-<div>
-    <div style="width:80%;" class="bigDiv col-sm-8 col-sm-offset-1">
-        <canvas id="chartjs-0" class="chartjs" width="404" height="202" style="display: block; width: 404px; height: 202px;"></canvas>
     </div>
 </div>
 
