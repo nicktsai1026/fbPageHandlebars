@@ -11,7 +11,7 @@ module.exports = function (app, db) {
         res.redirect('/login');
     }
 
-    module.exports.isLoggedIn = isLoggedIn
+    // module.exports.isLoggedIn = isLoggedIn
 
     app.get('/', isLoggedIn, (req, res) => {
         res.redirect('/home');

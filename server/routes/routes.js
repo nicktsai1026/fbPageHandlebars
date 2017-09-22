@@ -4,8 +4,7 @@ const axios = require('axios');
 module.exports = function (app, db) {
     //const getUser = new GetUser(app, db);
     function isLoggedIn(req, res, next) {
-        if (req.isAuthenticated()) {
-            console.log('Already logged in!')
+        if (req.session.passport) {
             return next();
         }
         res.redirect('/login');
@@ -223,6 +222,7 @@ module.exports = function (app, db) {
                         if(counter == item.favor.length) {
                             showFavouriteObj.showFavouritePages = favouriteArr;
                             showFavouriteObj.header = `Favourite Pages`
+                            showFavouriteObj.counting = counter;
                             res.render('showFavourite', showFavouriteObj);
                         }
                     })
