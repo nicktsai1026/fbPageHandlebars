@@ -103,7 +103,6 @@ module.exports = function (app, db) {
                 commonObj.commonPages = commonArr;
                 commonObj.pageCounter = counter;
                 res.render('common', commonObj);
-
             })
     })
 
@@ -221,7 +220,7 @@ module.exports = function (app, db) {
                         counter++;
                         if(counter == item.favor.length) {
                             showFavouriteObj.showFavouritePages = favouriteArr;
-                            showFavouriteObj.header = `Favourite Pages`
+                            showFavouriteObj.header = `favourite pages`
                             showFavouriteObj.counting = counter;
                             res.render('showFavourite', showFavouriteObj);
                         }
