@@ -85,14 +85,14 @@ module.exports = function (app, db) {
                     pageObj.likes = details[0];
                     db.collection('users').updateOne({ fbId: userId }, { $set: pageObj }, (err, item) => {
                         if (err) return console.log(err)
-                        // res.redirect('/setPageDetails');
+                        res.redirect('/setPageDetails');
                     })
                 })
                 .catch((err) => {
                     console.log(err);
                 })
         })
-        res.redirect('/setPageDetails');
+        //res.redirect('/setPageDetails');
     })
 
     app.get('/setPageDetails', (req, res) => {
