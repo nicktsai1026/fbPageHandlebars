@@ -3,7 +3,14 @@ const axios = require('axios');
 
 module.exports = function (app, db) {
     //const getUser = new GetUser(app, db);
-    app.get('/home', (req, res) => {
+    function isLoggedIn(req, res, next) {
+        if (req.session.passport) {
+            return next();
+        }
+        res.redirect('/login');
+    }
+
+    app.get('/home', isLoggedIn, (req, res) => {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
             if (err) return console.log(err)
@@ -35,7 +42,7 @@ module.exports = function (app, db) {
         })
     })
 
-    app.get('/checkFriends', (req, res) => {
+    app.get('/checkFriends', isLoggedIn, (req, res) => {
         var userId = req.session.passport.user;
         //get friend info save to database
         db.collection('users').findOne({ fbId: userId}, (err, item) => {
@@ -67,7 +74,7 @@ module.exports = function (app, db) {
         })
     })
 
-    app.get('/friends/commonpages/:id/:name', (req, res) => {
+    app.get('/friends/commonpages/:id/:name', isLoggedIn, (req, res) => {
         var friendId = req.params.id;
         var friendName = req.params.name;
         var userId = req.session.passport.user;
@@ -96,11 +103,10 @@ module.exports = function (app, db) {
                 commonObj.commonPages = commonArr;
                 commonObj.pageCounter = counter;
                 res.render('common', commonObj);
-
             })
     })
 
-    app.get('/category/:item', (req, res) => {
+    app.get('/category/:item', isLoggedIn, (req, res) => {
         var categoryName = req.params.item;
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
@@ -132,7 +138,7 @@ module.exports = function (app, db) {
         }) 
     })
 
-    app.get('/category/:item/:item', (req, res) => {
+    app.get('/category/:item/:item', isLoggedIn, (req, res) => {
         var userId = req.session.passport.user;
         var path = req.originalUrl;
         var categoryName = path.replace('/category/', '').replace('%20', ' ');
@@ -165,7 +171,7 @@ module.exports = function (app, db) {
         })
     })
 
-    app.post('/addFavourite', (req, res) => {
+    app.post('/addFavourite', isLoggedIn, (req, res) => {
         var favorId = req.body.addFavorId;
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
@@ -191,7 +197,7 @@ module.exports = function (app, db) {
         })
     })
 
-    app.get('/showFavourite', (req, res) => {
+    app.get('/showFavourite', isLoggedIn, (req, res) => {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
             if (err) return console.log(err)
@@ -214,7 +220,8 @@ module.exports = function (app, db) {
                         counter++;
                         if(counter == item.favor.length) {
                             showFavouriteObj.showFavouritePages = favouriteArr;
-                            showFavouriteObj.header = `Favourite Pages`
+                            showFavouriteObj.header = `favourite pages`
+                            showFavouriteObj.counting = counter;
                             res.render('showFavourite', showFavouriteObj);
                         }
                     })
@@ -223,7 +230,7 @@ module.exports = function (app, db) {
         })
     })
 
-    app.get('/checkTimeLine', (req, res) => {
+    app.get('/checkTimeLine', isLoggedIn, (req, res) => {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId}, (err, item) => {
             var yearArr = [];
@@ -251,7 +258,7 @@ module.exports = function (app, db) {
         })
     })
 
-    app.get('/checkMonth', (req, res) => {
+    app.get('/checkMonth', isLoggedIn, (req, res) => {
         var inputSearch = req.query.year+'-'+req.query.month;
         var userId = req.session.passport.user;
         var searchArr = [];
