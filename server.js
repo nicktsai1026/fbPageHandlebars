@@ -33,4 +33,4 @@ MongoClient.connect(db.url, (err, database) => {
 })
 
 // for unit test
-module.exports.app = app;
+//module.exports.app = app;
