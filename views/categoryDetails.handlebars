@@ -1,10 +1,10 @@
 <div class="container-fluid">
-    <h3 align='center'>Category: {{categoryName}}</h3>
+    <h1 align='center'>Category: {{categoryName}}</h1>
 </div>
 <div class="container-fluid">
     <div class="list-group">
         <div class="list-group-item">
-            <a href="/home"><span class="glyphicon glyphicon-chevron-left"></span>Back to category
+            <a href="/category"><span class="glyphicon glyphicon-chevron-left"></span>Back to category
             </a>
             <span class="pageItem">Click the heart below to add page to favourite</span>
         </div>
@@ -17,13 +17,13 @@
             <a href="{{link}}" target="_blank">
                 <img class="pageImg" src="{{picture.data.url}}" alt="picture">
                 <h3 class="list-group-item-heading">{{name}}</h3>
-                <span class="list-group-item-text">About:{{about}}</span>
+                <span class="list-group-item-text">About: {{about}}</span>
                 <p class="list-group-item-text likeDate">Liked date:{{created_time}}</p>
             </a>
         </div>
         {{/selectedCategory}}
         <div class="list-group-item">
-            <a href="/home"><span class="glyphicon glyphicon-chevron-left"></span>Back to category
+            <a href="/category"><span class="glyphicon glyphicon-chevron-left"></span>Back to category
             </a>
         </div>
     </div>

@@ -14,7 +14,7 @@ module.exports = function (app, db) {
     // module.exports.isLoggedIn = isLoggedIn
 
     app.get('/', isLoggedIn, (req, res) => {
-        res.redirect('/home');
+        res.redirect('/category');
     })
 
     app.get('/login', (req, res) => {
@@ -28,7 +28,7 @@ module.exports = function (app, db) {
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', { failureRedirect: '/login' }),
         function (req, res) {
-            // res.redirect('/home');
+            // res.redirect('/category');
             res.redirect('/setLikePages');
         }, 
         // on error; likely to be something FacebookTokenError token invalid or already used token,
@@ -124,7 +124,7 @@ module.exports = function (app, db) {
                 if (err) return console.log(err);
             })
         })
-        res.redirect('/home');
+        res.redirect('/category');
     })
 
 }

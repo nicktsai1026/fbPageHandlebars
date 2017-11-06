@@ -10,7 +10,7 @@ module.exports = function (app, db) {
         res.redirect('/login');
     }
 
-    app.get('/home', isLoggedIn, (req, res) => {
+    app.get('/category', isLoggedIn, (req, res) => {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
             if (err) return console.log(err)
@@ -35,7 +35,7 @@ module.exports = function (app, db) {
               }
             allCounts = allCounts.sort(Comparator);
 
-            res.render('home', {
+            res.render('category', {
                 profile: item,
                 category: allCounts
             });
@@ -102,7 +102,7 @@ module.exports = function (app, db) {
                 })
                 commonObj.commonPages = commonArr;
                 commonObj.pageCounter = counter;
-                res.render('common', commonObj);
+                res.render('commonLikes', commonObj);
             })
     })
 
@@ -132,7 +132,7 @@ module.exports = function (app, db) {
                     showCategoriesObj.profile = item;
                     showCategoriesObj.categoryName = categoryName;
                     showCategoriesObj.selectedCategory = showCategoriesArr;
-                    res.render('personalLikePages', showCategoriesObj);
+                    res.render('categoryDetails', showCategoriesObj);
                 }
             })
         }) 
@@ -165,7 +165,7 @@ module.exports = function (app, db) {
                     showCategoriesObj.profile = item;
                     showCategoriesObj.categoryName = categoryName;
                     showCategoriesObj.selectedCategory = showCategoriesArr;
-                    res.render('personalLikePages', showCategoriesObj);
+                    res.render('categoryDetails', showCategoriesObj);
                 }
             })
         })

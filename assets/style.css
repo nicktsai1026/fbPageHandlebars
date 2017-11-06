@@ -1,7 +1,7 @@
 .all{
     color: white;
     /* font-family: Arial, Helvetica, sans-serif; */
-    color: black;
+    color: #382110;
     font-family: 'Open Sans', sans-serif;    
 }
 
@@ -17,11 +17,11 @@
 .background{
     /* background-image: linear-gradient(to right, #2b5876 0%, #4e4376 100%); */
     /* background-image: linear-gradient(to right, #2b5876 0%, #4e4376 100%); */
-    background-color: #e9eaed
+    background-color: #F4F1EA
 }
     
 .login{
-    background-color: #e9eaed
+    background-color: #F4F1EA
 }
     
 .showlogin {
@@ -34,7 +34,7 @@
 .navbar{
     background-color: #EDE4DD;
     /* background-color: #EDE4DD; */
-    background-color: #3b5998;
+    background-color: #f9f7f4;
     margin-bottom: 0px;
     border: 0px
 }
@@ -46,25 +46,33 @@
 .navbar-nav, .navbar-header{
     /* background-color: #EDE4DD; */
     /* background-color: #EDE4DD; */
-    background-color: #3b5998;
+    background-color: #f9f7f4;
 }
 
 .navbar-default .navbar-brand{
-    color: #fff
+    color: #382110
 }
 
 .navbar-default .navbar-brand:hover{
-    color: #fff;
-    background-color: #324e85;
+    color: #f9f7f4;
+    background-color: #382110;
 }
 
 .navbar-default .navbar-nav>li>a{
-    color: #fff
+    color: #382110
 }
 
 .navbar-default .navbar-nav>li>a:hover{
-    color: #fff;
-    background-color: #324e85;
+    color: #f9f7f4;
+    background-color: #382110;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #382110;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: #382110;
 }
     
 .profile-pic {
@@ -93,7 +101,7 @@
 
 .pageItem {
     float: right;
-    color: #6697C1;
+    color: #382110;
 }
 
 .pageImg {
@@ -105,7 +113,7 @@
 }
 
 .seperator{
-    border-color: #324e85;
+    border-color: #f9f7f4;
 }
     
 .list-group-item{
@@ -126,10 +134,10 @@ select {
 .sub {
     background-color:black;
     margin: 5px;
-    background-color:#4267b2;
+    background-color:#f9f7f4;
     border-radius: 2px;
-    border-color: #4267b2;  
-    color: white;
+    border-color: #f9f7f4;  
+    color: #382110;
     margin: 10px;
 }
 
